@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "95496731068",
+    "firebase_url": "https://geotag-911.firebaseio.com",
+    "project_id": "geotag-911",
+    "storage_bucket": "geotag-911.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95496731068:android:40d25fa25e293539edd3b9",
+        "android_client_info": {
+          "package_name": "com.atls.geotag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95496731068-4h41hs9djro1jva084polv0pjmt9rp0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAen54chQMmt-mgcl1xd81lL_9ECx9XY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95496731068-4h41hs9djro1jva084polv0pjmt9rp0m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95496731068-ds6g48iess87pbmh2llhgkd9p4h0ofoa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atls.geotag"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
