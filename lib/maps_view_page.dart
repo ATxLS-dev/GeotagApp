@@ -1,12 +1,31 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'new_tag_overlay.dart';
+import 'package:geotag/navigation_drawer.dart';
 
-class MapView extends StatefulWidget {
+class MapViewPage extends StatelessWidget {
+  static const String routeName = '/maps_view_page';
+
   @override
-  _MapViewState createState() => _MapViewState();
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('Map'),
+      ),
+      drawer: NavigationDrawer(),
+      body: MapWidget(),
+      floatingActionButton: NewTagFloatingActionButton()
+    );
 }
 
-class _MapViewState extends State<MapView> {
+class MapWidget extends StatefulWidget {
+  MapWidget({Key key}) : super(key:key);
+  @override
+  _MapWidgetState createState() => _MapWidgetState();
+}
+
+class _MapWidgetState extends State<MapWidget> {
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
@@ -30,8 +49,6 @@ class _MapViewState extends State<MapView> {
             borderRadius: BorderRadius.all(radius),
             child: GoogleMap(
               onMapCreated: _onMapCreated,
-              buildingsEnabled: false,
-              mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
               initialCameraPosition: CameraPosition(
                 target: _center,
@@ -44,3 +61,17 @@ class _MapViewState extends State<MapView> {
     );
   }
 }
+
+class NewTagFloatingActionButton extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) =>
+      FloatingActionButton(
+        foregroundColor: Colors.blue,
+        child: Icon(Icons.add),
+        onPressed: () => {
+          Navigator.of(context).push(NewTagOverlay())
+        },
+      );
+}
+

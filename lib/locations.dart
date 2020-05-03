@@ -5,6 +5,25 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'locations.g.dart';
 
+//  final Map<String, Marker> _markers = {};
+//  Future<void> _onMapCreated(GoogleMapController controller) async {
+//    final googleOffices = await locations.getGoogleOffices();
+//    setState(() {
+//      _markers.clear();
+//      for (final office in googleOffices.offices) {
+//        final marker = Marker(
+//          markerId: MarkerId(office.name),
+//          position: LatLng(office.lat, office.lng),
+//          infoWindow: InfoWindow(
+//            title: office.name,
+//            snippet: office.address,
+//          ),
+//        );
+//        _markers[office.name] = marker;
+//      }
+//    });
+//  }
+
 @JsonSerializable()
 class LatLng {
   LatLng({

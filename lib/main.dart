@@ -1,7 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geotag/geotag_home_page.dart';
-//import 'locations.dart' as locations;
+import 'package:geotag/maps_view_page.dart';
+import 'tag_list_page.dart';
+import 'routes.dart';
 
-void main() => runApp(GeotagHomePage());
+void main() => runApp(
+  MaterialApp(
+    home: MapViewPage(),
+    routes: {
+      Routes.mapViewPage: (context) => MapViewPage(),
+      Routes.tagListPage: (context) => TagListPage()
+    },
+  )
+);
 

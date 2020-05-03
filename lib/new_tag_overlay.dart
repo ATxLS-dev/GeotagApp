@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'shared_preferences.dart';
 
-String _currentNote = '';
+String _currentTagText = '';
 
-class NewNoteOverlay extends ModalRoute<void> {
+class NewTagOverlay extends ModalRoute<void> {
   @override
   Duration get transitionDuration => Duration(milliseconds: 500);
   @override
@@ -35,7 +35,7 @@ class NewNoteOverlay extends ModalRoute<void> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _NoteForm(),
+                _TagForm(),
                 _OverlayButton()
               ],
             ),
@@ -62,12 +62,12 @@ class NewNoteOverlay extends ModalRoute<void> {
   }
 }
 
-class _NoteForm extends StatefulWidget {
+class _TagForm extends StatefulWidget {
   @override
-  _NoteFormState createState() => _NoteFormState();
+  _TagFormState createState() => _TagFormState();
 }
 
-class _NoteFormState extends State<_NoteForm> {
+class _TagFormState extends State<_TagForm> {
 
   final _controller = TextEditingController();
   final _formKey = GlobalKey<FormState>(debugLabel: '_formKey');
@@ -75,7 +75,7 @@ class _NoteFormState extends State<_NoteForm> {
   @override
   void initState() {
     _controller.addListener(() {
-      _currentNote = _controller.text;
+      _currentTagText = _controller.text;
     });
     super.initState();
   }
@@ -99,7 +99,7 @@ class _NoteFormState extends State<_NoteForm> {
             maxLines: 40,
             autocorrect: true,
             decoration: const InputDecoration(
-                hintText: 'Write your thought here and rest easy',
+                hintText: 'Write your tag',
                 filled: true,
                 fillColor: Colors.black45,
                 border: OutlineInputBorder(
@@ -142,8 +142,8 @@ class _OverlayButtonState extends State<_OverlayButton> {
                     setState(() {
                       savingNote = true;
                     });
-                    noteStream.currentNote = _currentNote;
-                    noteStream.updateNoteDB();
+                    tagCreator.currentTagText = _currentTagText;
+                    tagCreator.updateTagDB();
                     await Future.delayed(Duration(milliseconds: 500));
                     setState(() {
                       success = true;
