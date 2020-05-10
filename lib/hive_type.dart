@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 
-@HiveType(typeId: 0)
-class HiveTag {
+part 'hive_type.g.dart';
 
-  HiveTag({this.tagLatitude, this.tagLongitude, this.tagText, this.tagTitle});
+@HiveType(typeId: 0)
+class HiveTagFormat {
+
+  HiveTagFormat({this.tagLatitude, this.tagLongitude, this.tagText, this.tagTitle});
 
   @HiveField(0)
   double tagLatitude;
