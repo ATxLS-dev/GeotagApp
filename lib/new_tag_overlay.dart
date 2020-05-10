@@ -12,7 +12,7 @@ class NewTagOverlay extends ModalRoute<void> {
   @override
   bool get barrierDismissible => false;
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.5);
+  Color get barrierColor => Colors.black.withOpacity(0.9);
   @override
   String get barrierLabel => null;
   @override
@@ -53,7 +53,9 @@ class NewTagOverlay extends ModalRoute<void> {
       Widget child
       ) {
     return CupertinoFullscreenDialogTransition(
-      animation: animation,
+      linearTransition: null,
+      primaryRouteAnimation: animation,
+      secondaryRouteAnimation: secondaryAnimation,
       child: ScaleTransition(
         scale: animation,
         child: child
@@ -101,10 +103,10 @@ class _TagFormState extends State<_TagForm> {
             decoration: const InputDecoration(
                 hintText: 'Write your tag',
                 filled: true,
-                fillColor: Colors.black45,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(color: Colors.amber)
+                    borderSide: BorderSide(color: Colors.blue)
                 )
             ),
           ),
@@ -132,12 +134,12 @@ class _OverlayButtonState extends State<_OverlayButton> {
             child: Center(
               child: Ink(
                 decoration: const ShapeDecoration(
-                  color: Colors.amber,
+                  color: Colors.blue,
                   shape: CircleBorder()
                 ),
                 child: IconButton(
                   icon: Icon(Icons.save_alt),
-                  color: Colors.black,
+                  color: Colors.white,
                   onPressed: () async {
                     setState(() {
                       savingNote = true;

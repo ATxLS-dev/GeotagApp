@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:rxdart/rxdart.dart';
-import 'tag_types.dart';
+import 'tag_class.dart';
 
 final tagCreator = TagCreator();
 

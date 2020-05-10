@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'shared_preferences.dart';
-import 'tag_types.dart';
+import 'tag_class.dart';
 import 'navigation_drawer.dart';
 
 class TagListPage extends StatelessWidget {
