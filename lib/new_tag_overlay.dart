@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'shared_preferences.dart';
-
-String _currentTagText = '';
+import 'hive_tag_DB.dart';
 
 class NewTagOverlay extends ModalRoute<void> {
   @override
@@ -73,11 +71,12 @@ class _TagFormState extends State<_TagForm> {
 
   final _controller = TextEditingController();
   final _formKey = GlobalKey<FormState>(debugLabel: '_formKey');
+  final _hiveDB = HiveDB();
 
   @override
   void initState() {
     _controller.addListener(() {
-      _currentTagText = _controller.text;
+      _hiveDB.currentTagText = _controller.text;
     });
     super.initState();
   }
@@ -125,6 +124,7 @@ class _OverlayButtonState extends State<_OverlayButton> {
 
   bool savingNote = false;
   bool success = false;
+  final _hiveDB = HiveDB();
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +144,7 @@ class _OverlayButtonState extends State<_OverlayButton> {
                     setState(() {
                       savingNote = true;
                     });
-                    tagCreator.currentTagText = _currentTagText;
-                    tagCreator.updateTagDB();
+                    _hiveDB.saveTag();
                     await Future.delayed(Duration(milliseconds: 500));
                     setState(() {
                       success = true;

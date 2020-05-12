@@ -1,25 +1,50 @@
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:geolocator/geolocator.dart';
 import 'hive_type.dart';
 
 class HiveDB {
 
-  HiveDB(this._box);
-
-  static const _tagBox = '_tagBox';
-  final Box<HiveTagFormat> _box;
-
-  static Future<HiveDB> getInstance() async {
-    Hive.registerAdapter(HiveTagFormatAdapter());
-    final tagBox = await Hive.openBox<HiveTagFormat>(_tagBox);
-    return HiveDB(tagBox);
+  HiveDB() {
+    _hiveInit();
   }
 
-  void saveTag(HiveTagFormat newTag) => _box.add(newTag);
+  Future<void> _hiveInit() async {
+    Hive.registerAdapter(HiveTagFormatAdapter());
+    var dir = await getApplicationDocumentsDirectory();
+    await Hive.initFlutter(dir.path);
+    tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
+  }
 
-  void getTag(int keyValue) => _box.get(keyValue);
+  Box<HiveTagFormat> tagBox;
+  String currentTagText;
 
-  void deleteTag(int index) => _box.deleteAt(index);
+  Geolocator geolocator = Geolocator()
+    ..forceAndroidLocationManager;
 
-  void editTag(int index, HiveTagFormat editedTag) => _box.put(index, editedTag);
-  
+  Box<HiveTagFormat> get getTagBox => tagBox;
+
+  void saveTag() async {
+    Position _currentPosition;
+    await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((position) {
+      _currentPosition = position;
+    }).catchError((e) {print(e);});
+
+    var _tag = HiveTagFormat(
+        tagLatitude: _currentPosition.latitude,
+        tagLongitude: _currentPosition.longitude,
+        tagText: currentTagText
+    );
+    await tagBox.add(_tag);
+  }
+
+  void getTag(int keyValue) => tagBox.get(keyValue);
+
+  void deleteTag(int index) => tagBox.deleteAt(index);
+
+  void editTag(int index, HiveTagFormat editedTag) => tagBox.put(index, editedTag);
+
 }
+

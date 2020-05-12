@@ -20,7 +20,7 @@ class NavigationDrawer extends StatelessWidget {
               icon: Icons.flag,
               text: 'Tags',
               onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.tagListPage)),
+                  Navigator.pushReplacementNamed(context, Routes.hiveListPage)),
           _footer()
         ],
       ),
@@ -29,12 +29,12 @@ class NavigationDrawer extends StatelessWidget {
 
   Widget _header() {
     return UserAccountsDrawerHeader(
-      accountName: Text("Account name"),
-      accountEmail: Text("ATLS@mac.com"),
+      accountName: Text('Account name'),
+      accountEmail: Text('ATLS@mac.com'),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.black,
         child: Text(
-          "A",
+          'A',
           style: TextStyle(fontSize: 40.0),
         ),
       ),

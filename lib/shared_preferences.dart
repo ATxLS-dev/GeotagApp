@@ -22,7 +22,7 @@ class TagCreator {
     List<String> listTagsFromJSON(String jsonString) => List<String>.from(jsonDecode(jsonString));
 
     final _masterDBKey = 'allTags';
-    SharedPreferences tagDB = await SharedPreferences.getInstance();
+    var tagDB = await SharedPreferences.getInstance();
     
     await tagDB.setString(_masterDBKey, listStringToJSON(buildTagList));
     buildTagList = listTagsFromJSON(tagDB.get(_masterDBKey));
@@ -41,7 +41,7 @@ class TagCreator {
       _currentPosition = position;
     }).catchError((e) {print(e);});
 
-    Tag _tag = Tag(latitude: _currentPosition.latitude, longitude: _currentPosition.longitude, tagText: currentTagText);
+    var _tag = Tag(latitude: _currentPosition.latitude, longitude: _currentPosition.longitude, tagText: currentTagText);
     tags.add(_tag);
     buildTagList.add(jsonEncode(_tag.toJson()));
   }
