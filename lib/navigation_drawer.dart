@@ -1,3 +1,4 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 
@@ -17,7 +18,7 @@ class NavigationDrawer extends StatelessWidget {
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.mapViewPage)),
           _createDrawerItem(
-              icon: Icons.flag,
+              icon: FeatherIcons.box,
               text: 'Tags',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.hiveListPage)),
@@ -58,7 +59,7 @@ class NavigationDrawer extends StatelessWidget {
               children: <Widget>[
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(FeatherIcons.anchor),
                   title: Text('Settings'),
                 ),
                 Padding(

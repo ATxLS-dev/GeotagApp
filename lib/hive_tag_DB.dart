@@ -19,7 +19,6 @@ class HiveDB {
 
   Box<HiveTagFormat> tagBox;
   String currentTagText;
-
   Geolocator geolocator = Geolocator()
     ..forceAndroidLocationManager;
 
@@ -35,7 +34,7 @@ class HiveDB {
     var _tag = HiveTagFormat(
         tagLatitude: _currentPosition.latitude,
         tagLongitude: _currentPosition.longitude,
-        tagText: currentTagText
+        tagText: currentTagText ?? 'empty tag'
     );
     await tagBox.add(_tag);
   }

@@ -1,8 +1,10 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'new_tag_overlay.dart';
-import 'package:geotag/navigation_drawer.dart';
+import 'navigation_drawer.dart';
+import 'tag_creator_button.dart';
 
 class MapViewPage extends StatelessWidget {
   static const String routeName = '/maps_view_page';
@@ -68,10 +70,21 @@ class NewTagFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) =>
       FloatingActionButton(
         foregroundColor: Colors.blue,
-        child: Icon(Icons.add),
+        child: Icon(FeatherIcons.crosshair, color: Colors.white),
         onPressed: () => {
           Navigator.of(context).push(NewTagOverlay())
         },
       );
 }
 
+//
+//final _getCoordinates = BehaviorSubject<CoordinateSet>();
+//Stream<Position> get positionStream => geolocator.getPositionStream(
+//    LocationOptions(accuracy: LocationAccuracy.best));
+//
+//Get the current phone position as a stream
+//StreamSubscription<Position> positionStream = geolocator.getPositionStream(
+//LocationOptions(
+//accuracy: LocationAccuracy.best
+//)).listen(
+//(Position position) => currentPositionMap = CoordinateSet(position.latitude, position.longitude));

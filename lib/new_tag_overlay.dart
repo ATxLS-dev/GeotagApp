@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'hive_tag_DB.dart';
 
 class NewTagOverlay extends ModalRoute<void> {
+
   @override
   Duration get transitionDuration => Duration(milliseconds: 500);
   @override

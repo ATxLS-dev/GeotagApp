@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geotag/hive_type.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'hive_tag_DB.dart';
 import 'navigation_drawer.dart';
 
@@ -28,11 +27,22 @@ class HiveTagList extends StatefulWidget {
 
 class _HiveTagListState extends State<HiveTagList> {
 
-  var hiveDB = HiveDB();
+  var hiveDB;
+
+  @override
+  void initState() async {
+    super.initState();
+    hiveDB = await HiveDB();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return _boxBuilder();
+    if (hiveDB.getTagBox != null) {
+      return _boxBuilder();
+    }
+    else {
+      return Text('no tag data');
+    }
   }
 
   Widget _boxBuilder() {
