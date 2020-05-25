@@ -1,9 +1,8 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'routes.dart';
 
 class NavigationDrawer extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,12 +12,12 @@ class NavigationDrawer extends StatelessWidget {
         children: <Widget>[
           _header(),
           _createDrawerItem(
-              icon: Icons.terrain,
+              icon: FontAwesomeIcons.bandcamp,
               text: 'Map',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.mapViewPage)),
           _createDrawerItem(
-              icon: FeatherIcons.box,
+              icon: FontAwesomeIcons.featherAlt,
               text: 'Tags',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.hiveListPage)),
@@ -42,33 +41,30 @@ class NavigationDrawer extends StatelessWidget {
     );
   }
 
-  Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(text),
-      onTap: onTap
-    );
+  Widget _createDrawerItem(
+      {IconData icon, String text, GestureTapCallback onTap}) {
+    return ListTile(leading: Icon(icon), title: Text(text), onTap: onTap);
   }
 
   Widget _footer() {
     return Container(
-        child: Align(
+      child: Align(
         alignment: FractionalOffset.bottomCenter,
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Divider(),
-                ListTile(
-                  leading: Icon(FeatherIcons.anchor),
-                  title: Text('Settings'),
-                ),
-                Padding(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Divider(),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.anchor),
+                title: Text('Settings'),
+              ),
+              Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
+      ),
     );
   }
 }

@@ -1,60 +1,72 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'hive_tag_DB.dart';
 
-class TagCreatorButton extends StatefulWidget {
+class CurrentLocationFAB extends StatefulWidget {
+  const CurrentLocationFAB({Key key, @required this.androidFusedLocation})
+      : super(key: key);
+  final bool androidFusedLocation;
   @override
-  _TagCreatorButtonState createState() => _TagCreatorButtonState();
+  _CurrentLocationFABState createState() => _CurrentLocationFABState();
 }
 
-class _TagCreatorButtonState extends State<TagCreatorButton> {
-
-  bool savingLocation = false;
-  bool success = false;
-  var _hiveDB;
+class _CurrentLocationFABState extends State<CurrentLocationFAB> {
+  Position _currentPosition;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    _hiveDB = HiveDB();
+    _initCurrentLocation;
   }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _currentPosition = null;
+    });
+    _initCurrentLocation();
+  }
+
+  void _initCurrentLocation() {
+    Geolocator()
+      ..forceAndroidLocationManager = !widget.androidFusedLocation
+      ..getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+          .then((position) {
+        if (mounted) {
+          setState(() => {_currentPosition = position});
+        }
+      }).catchError((e) {
+        print(e);
+      });
+  }
+
+  final _hiveDB = HiveDB();
+  bool savingLocation = false;
+  bool success = false;
 
   @override
   Widget build(BuildContext context) {
     return !savingLocation
-        ? Material(
-      color: Colors.transparent,
-      child: Center(
-        child: Ink(
-            decoration: const ShapeDecoration(
-                color: Colors.blue,
-                shape: CircleBorder()
-            ),
-            child: IconButton(
-              icon: Icon(FeatherIcons.crosshair),
-              color: Colors.white,
-              onPressed: () async {
-                setState(() {
-                  savingLocation = true;
-                });
-                _hiveDB.saveTag();
-                await Future.delayed(Duration(milliseconds: 500));
-                setState(() {
-                  success = true;
-                });
-                await Future.delayed(Duration(milliseconds: 500));
-                Navigator.pop(context);
-              },
-            )
-        ),
-      ),
-    )
+        ? FloatingActionButton(
+            backgroundColor: Colors.blue,
+            child: FaIcon(FontAwesomeIcons.crosshairs),
+            onPressed: () async {
+              setState(() {
+                savingLocation = true;
+              });
+              _hiveDB.saveTag(currentPosition: _currentPosition);
+              await Future.delayed(Duration(milliseconds: 500));
+              setState(() {
+                success = true;
+              });
+              await Future.delayed(Duration(milliseconds: 500));
+            },
+          )
         : !success
-        ? CircularProgressIndicator()
-        : Icon(
-            Icons.check,
-            color: Colors.blue,
-          );
+            ? CircularProgressIndicator()
+            : FaIcon(FontAwesomeIcons.check);
   }
 }

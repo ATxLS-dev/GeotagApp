@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:geotag/hive_type.dart';
 import 'hive_tag_DB.dart';
 import 'navigation_drawer.dart';
@@ -9,13 +10,13 @@ class HiveListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.black,
-      title: Text('My Tags'),
-    ),
-    drawer: NavigationDrawer(),
-    body: HiveTagList(),
-  );
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text('My Tags'),
+        ),
+        drawer: NavigationDrawer(),
+        body: HiveTagList(),
+      );
 }
 
 class HiveTagList extends StatefulWidget {
@@ -26,37 +27,27 @@ class HiveTagList extends StatefulWidget {
 }
 
 class _HiveTagListState extends State<HiveTagList> {
-
-  var hiveDB;
-
-  @override
-  void initState() async {
-    super.initState();
-    hiveDB = await HiveDB();
-  }
+  final _hiveDB = HiveDB();
 
   @override
   Widget build(BuildContext context) {
-    if (hiveDB.getTagBox != null) {
+    if (_hiveDB.getTagBox != null) {
       return _boxBuilder();
-    }
-    else {
+    } else {
       return Text('no tag data');
     }
   }
 
   Widget _boxBuilder() {
     return ValueListenableBuilder(
-        valueListenable: hiveDB.getTagBox.listenable(),
+        valueListenable: _hiveDB.getTagBox.listenable(),
         builder: (context, tagBox, widget) {
           return ListView.builder(
-            itemCount: tagBox.length,
-            itemBuilder: (context, index) {
-              return _tagCard(tagBox.get(index), index);
-            }
-          );
-        }
-    );
+              itemCount: tagBox.length,
+              itemBuilder: (context, index) {
+                return _tagCard(tagBox.get(index), index);
+              });
+        });
   }
 
   Widget _tagCard(HiveTagFormat boxItem, int index) {
@@ -66,21 +57,17 @@ class _HiveTagListState extends State<HiveTagList> {
         color: Colors.black12,
         child: Container(
           decoration: BoxDecoration(
-              border: Border(
-                  top: BorderSide(width: 4, color: Colors.lightBlue)
-              )
-          ),
+              border:
+                  Border(top: BorderSide(width: 4, color: Colors.lightBlue))),
           child: ListTile(
             title: Text(boxItem.tagText),
             subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),
             trailing: IconButton(
                 icon: Icon(Icons.more_vert, color: Colors.white70),
                 onPressed: () {
-                  hiveDB.deleteTag(index);
-                }
-            ),
+                  _hiveDB.deleteTag(index);
+                }),
           ),
-        )
-    );
+        ));
   }
 }

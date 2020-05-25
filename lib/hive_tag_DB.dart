@@ -4,38 +4,29 @@ import 'package:path_provider/path_provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'hive_type.dart';
 
+Future<void> openHive() async {
+  var _hiveDB = HiveDB();
+  await _hiveDB.hiveInit();
+}
+
 class HiveDB {
+  Box<HiveTagFormat> tagBox;
+  String currentTagText;
 
-  HiveDB() {
-    _hiveInit();
-  }
+  Box<HiveTagFormat> get getTagBox => tagBox;
 
-  Future<void> _hiveInit() async {
+  Future<void> hiveInit() async {
     Hive.registerAdapter(HiveTagFormatAdapter());
     var dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(dir.path);
     tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
   }
 
-  Box<HiveTagFormat> tagBox;
-  String currentTagText;
-  Geolocator geolocator = Geolocator()
-    ..forceAndroidLocationManager;
-
-  Box<HiveTagFormat> get getTagBox => tagBox;
-
-  void saveTag() async {
-    Position _currentPosition;
-    await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((position) {
-      _currentPosition = position;
-    }).catchError((e) {print(e);});
-
+  void saveTag({Position currentPosition}) async {
     var _tag = HiveTagFormat(
-        tagLatitude: _currentPosition.latitude,
-        tagLongitude: _currentPosition.longitude,
-        tagText: currentTagText ?? 'empty tag'
-    );
+        tagLatitude: currentPosition.latitude,
+        tagLongitude: currentPosition.longitude,
+        tagText: currentTagText ?? 'empty tag');
     await tagBox.add(_tag);
   }
 
@@ -43,7 +34,6 @@ class HiveDB {
 
   void deleteTag(int index) => tagBox.deleteAt(index);
 
-  void editTag(int index, HiveTagFormat editedTag) => tagBox.put(index, editedTag);
-
+  void editTag(int index, HiveTagFormat editedTag) =>
+      tagBox.put(index, editedTag);
 }
-
