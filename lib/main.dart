@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geotag/tag_list_view.dart';
-import 'package:geotag/maps_view_page.dart';
+import 'package:geotag/map_view_page.dart';
 import 'hive_tag_DB.dart';
 import 'routes.dart';
 

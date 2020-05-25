@@ -1,5 +1,5 @@
 import 'tag_list_view.dart';
-import 'maps_view_page.dart';
+import 'map_view_page.dart';
 
 class Routes {
   static const String mapViewPage = MapViewPage.routeName;

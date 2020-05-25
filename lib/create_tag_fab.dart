@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'hive_tag_DB.dart';
 
-class CurrentLocationFAB extends StatefulWidget {
-  const CurrentLocationFAB({Key key, @required this.androidFusedLocation})
+class CreateTagFAB extends StatefulWidget {
+  const CreateTagFAB({Key key, @required this.androidFusedLocation})
       : super(key: key);
   final bool androidFusedLocation;
   @override
-  _CurrentLocationFABState createState() => _CurrentLocationFABState();
+  _CreateTagFABState createState() => _CreateTagFABState();
 }
 
-class _CurrentLocationFABState extends State<CurrentLocationFAB> {
+class _CreateTagFABState extends State<CreateTagFAB> {
   Position _currentPosition;
 
   @override
