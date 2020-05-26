@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'hive_tag_DB.dart';
+import 'hive_db_manager.dart';
 
 class WriteTagOverlay extends ModalRoute<void> {
   @override
@@ -55,7 +55,7 @@ class _TagForm extends StatefulWidget {
 class _TagFormState extends State<_TagForm> {
   final _controller = TextEditingController();
   final _formKey = GlobalKey<FormState>(debugLabel: '_formKey');
-  final _hiveDB = HiveDB();
+  final _hiveDB = HiveDBManager();
 
   @override
   void initState() {
@@ -103,7 +103,7 @@ class _OverlayButton extends StatefulWidget {
 }
 
 class _OverlayButtonState extends State<_OverlayButton> {
-  final _hiveDB = HiveDB();
+  final _hiveDB = HiveDBManager();
 
   bool savingNote = false;
   bool success = false;

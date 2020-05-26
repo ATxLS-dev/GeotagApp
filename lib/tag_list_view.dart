@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:geotag/hive_type.dart';
-import 'hive_tag_DB.dart';
+import 'hive_db_manager.dart';
 import 'navigation_drawer.dart';
 
 class HiveListPage extends StatelessWidget {
@@ -27,7 +27,7 @@ class HiveTagList extends StatefulWidget {
 }
 
 class _HiveTagListState extends State<HiveTagList> {
-  final _hiveDB = HiveDB();
+  final _hiveDB = HiveDBManager();
 
   @override
   Widget build(BuildContext context) {

@@ -84,12 +84,13 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
+  //Wrap with stream builder?
   Widget _mapView() {
     return GoogleMap(
       onMapCreated: _onMapCreated,
       myLocationButtonEnabled: false,
       initialCameraPosition: CameraPosition(
-        target: _currentLocation,
+        target: _currentLocation ?? LatLng(37.4219999, -122.0862462),
         zoom: 11.0,
       ),
     );
@@ -99,8 +100,18 @@ class _MapWidgetState extends State<MapWidget> {
     return Container(
       alignment: Alignment.topRight,
       padding: EdgeInsets.all(10.0),
-      child: CupertinoButton.filled(
-          child: Icon(Icons.navigation), onPressed: _toggleListening),
+      child: SizedBox(
+        width: 40.0,
+        height: 40.0,
+        child: CupertinoButton(
+            color: Colors.black45,
+            child: Center(
+                child: Icon(
+              Icons.navigation,
+              color: Colors.white,
+            )),
+            onPressed: _toggleListening),
+      ),
     );
   }
 }

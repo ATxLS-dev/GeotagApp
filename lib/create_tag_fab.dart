@@ -2,7 +2,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'hive_tag_DB.dart';
+import 'hive_db_manager.dart';
 
 class CreateTagFAB extends StatefulWidget {
   const CreateTagFAB({Key key, @required this.androidFusedLocation})
@@ -43,29 +43,32 @@ class _CreateTagFABState extends State<CreateTagFAB> {
       });
   }
 
-  final _hiveDB = HiveDB();
-  bool savingLocation = false;
-  bool success = false;
+  final _hiveDB = HiveDBManager();
+  bool _savingLocation = false;
+  bool _success = false;
 
   @override
   Widget build(BuildContext context) {
-    return !savingLocation
+    return !_savingLocation
         ? FloatingActionButton(
             backgroundColor: Colors.blue,
             child: FaIcon(FontAwesomeIcons.crosshairs),
             onPressed: () async {
               setState(() {
-                savingLocation = true;
+                _savingLocation = true;
               });
-              _hiveDB.saveTag(currentPosition: _currentPosition);
+              _initCurrentLocation();
               await Future.delayed(Duration(milliseconds: 500));
+              if (_currentPosition != null) {
+                _hiveDB.saveTag(currentPosition: _currentPosition);
+              }
               setState(() {
-                success = true;
+                _success = true;
               });
               await Future.delayed(Duration(milliseconds: 500));
             },
           )
-        : !success
+        : !_success
             ? CircularProgressIndicator()
             : FaIcon(FontAwesomeIcons.check);
   }
