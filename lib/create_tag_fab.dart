@@ -2,7 +2,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'hive_db_manager.dart';
+import 'package:geotag/config.dart';
 
 class CreateTagFAB extends StatefulWidget {
   const CreateTagFAB({Key key, @required this.androidFusedLocation})
@@ -43,7 +43,6 @@ class _CreateTagFABState extends State<CreateTagFAB> {
       });
   }
 
-  final _hiveDB = HiveDBManager();
   bool _savingLocation = false;
   bool _success = false;
 
@@ -60,7 +59,7 @@ class _CreateTagFABState extends State<CreateTagFAB> {
               _initCurrentLocation();
               await Future.delayed(Duration(milliseconds: 500));
               if (_currentPosition != null) {
-                _hiveDB.saveTag(currentPosition: _currentPosition);
+                hiveDBManager.saveTag(currentPosition: _currentPosition);
               }
               setState(() {
                 _success = true;

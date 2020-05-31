@@ -67,7 +67,7 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
-  final radius = Radius.circular(22.0);
+  final _radius = Radius.circular(22.0);
   Widget _mapWidget() {
     return Center(
       child: Padding(
@@ -75,10 +75,13 @@ class _MapWidgetState extends State<MapWidget> {
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black, width: 3.0),
-              borderRadius: BorderRadius.all(radius)),
+              borderRadius: BorderRadius.all(_radius)),
           child: ClipRRect(
-              borderRadius: BorderRadius.all(radius),
-              child: Stack(children: <Widget>[_mapView(), _centerMapButton()])),
+              borderRadius: BorderRadius.all(_radius),
+              child: Stack(children: <Widget>[
+                _mapView(),
+                _returnToCurrentLocationButton()
+              ])),
         ),
       ),
     );
@@ -96,7 +99,7 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
-  Widget _centerMapButton() {
+  Widget _returnToCurrentLocationButton() {
     return Container(
       alignment: Alignment.topRight,
       padding: EdgeInsets.all(10.0),

@@ -6,6 +6,7 @@ import 'hive_type.dart';
 
 class HiveDBManager {
   Box<HiveTagFormat> tagBox;
+  Box<bool> settingsBox;
   String currentTagText;
 
   Box<HiveTagFormat> get getTagBox => tagBox;
@@ -15,6 +16,7 @@ class HiveDBManager {
     await Hive.initFlutter(_dir.path);
     Hive.registerAdapter(HiveTagFormatAdapter());
     tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
+    settingsBox = await Hive.openBox<bool>('_settingsBox');
   }
 
   void saveTag({Position currentPosition}) async {
@@ -31,4 +33,11 @@ class HiveDBManager {
 
   void editTag(int index, HiveTagFormat editedTag) =>
       tagBox.put(index, editedTag);
+
+  final themeKey = '_themeKey';
+  void changeTheme() {
+    var _isDark = false;
+    _isDark = !_isDark;
+    settingsBox.put(themeKey, _isDark);
+  }
 }
