@@ -21,6 +21,11 @@ class NavigationDrawer extends StatelessWidget {
               text: 'Tags',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.hiveListPage)),
+          _createDrawerItem(
+              icon: FontAwesomeIcons.moon,
+              text: 'Settings',
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, Routes.settingsPage)),
           _footer()
         ],
       ),

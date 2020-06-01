@@ -35,11 +35,7 @@ class _CreateTagFABState extends State<CreateTagFAB> {
       ..forceAndroidLocationManager = !widget.androidFusedLocation
       ..getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
           .then((position) {
-        if (mounted) {
-          setState(() => {_currentPosition = position});
-        }
-      }).catchError((e) {
-        print(e);
+        setState(() => _currentPosition = position);
       });
   }
 
