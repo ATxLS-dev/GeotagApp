@@ -15,12 +15,12 @@ class NavigationDrawer extends StatelessWidget {
               icon: FontAwesomeIcons.bandcamp,
               text: 'Map',
               onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.mapViewPage)),
+                  Navigator.pushReplacementNamed(context, Routes.mapPage)),
           _createDrawerItem(
               icon: FontAwesomeIcons.featherAlt,
               text: 'Tags',
               onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.hiveListPage)),
+                  Navigator.pushReplacementNamed(context, Routes.tagListPage)),
           _createDrawerItem(
               icon: FontAwesomeIcons.moon,
               text: 'Settings',

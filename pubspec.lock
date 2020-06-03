@@ -204,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  file:
+    dependency: transitive
+    description:
+      name: file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
   firebase:
     dependency: transitive
     description:
@@ -408,6 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.12"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.16.1"
   io:
     dependency: transitive
     description:
@@ -498,7 +512,14 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.9"
+    version: "1.6.10"
+  path_provider_linux:
+    dependency: transitive
+    description:
+      name: path_provider_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+1"
   path_provider_macos:
     dependency: transitive
     description:
@@ -548,6 +569,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  process:
+    dependency: transitive
+    description:
+      name: process
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.13"
   pub_semver:
     dependency: transitive
     description:
@@ -686,6 +714,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  xdg_directories:
+    dependency: transitive
+    description:
+      name: xdg_directories
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   xml:
     dependency: transitive
     description:

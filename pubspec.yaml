@@ -17,7 +17,7 @@ dependencies:
 
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  path_provider: ^1.6.9
+  path_provider: ^1.6.10
 
   google_maps_flutter: ^0.5.28+1
   geolocator: ^5.3.1

@@ -5,8 +5,8 @@ import 'package:geotag/hive_type.dart';
 import 'config.dart';
 import 'navigation_drawer.dart';
 
-class HiveListPage extends StatelessWidget {
-  static const String routeName = '/hive_list_page';
+class TagListPage extends StatelessWidget {
+  static const String routeName = '/tag_list_page';
 
   @override
   Widget build(BuildContext context) => Scaffold(
