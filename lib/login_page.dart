@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'authentication.dart';
+import 'config.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({this.auth, this.loginCallback});
+  LoginPage({this.loginCallback});
 
-  final Authenticator auth;
   final VoidCallback loginCallback;
 
   @override
@@ -39,10 +38,10 @@ class _LoginPageState extends State<LoginPage> {
       var userId = '';
       try {
         if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
+          userId = await authenticator.logIn(_email, _password);
           print('Signed in: $userId');
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          userId = await authenticator.signUp(_email, _password);
           //widget.auth.sendEmailVerification();
           //_showVerifyEmailSentDialog();
           print('Signed up user: $userId');
@@ -220,7 +219,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
-
 //  void _showVerifyEmailSentDialog() {
 //    showDialog(
 //      context: context,

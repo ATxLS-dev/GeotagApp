@@ -15,5 +15,6 @@ class MapPage extends StatelessWidget {
       ),
       drawer: NavigationDrawer(),
       body: MapWidget(),
-      floatingActionButton: CreateTagFAB(androidFusedLocation: true));
+      floatingActionButton: CreateTagFAB()
+  );
 }

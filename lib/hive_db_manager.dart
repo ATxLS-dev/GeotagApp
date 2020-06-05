@@ -5,13 +5,18 @@ import 'package:geolocator/geolocator.dart';
 import 'hive_type.dart';
 
 class HiveDBManager {
+  
+  HiveDBManager() {
+    _initHive();
+  }
+  
   Box<HiveTagFormat> tagBox;
   Box<bool> settingsBox;
   String currentTagText;
 
   Box<HiveTagFormat> get getTagBox => tagBox;
 
-  Future<void> hiveInit() async {
+  Future<void> _initHive() async {
     var _dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(_dir.path);
     Hive.registerAdapter(HiveTagFormatAdapter());

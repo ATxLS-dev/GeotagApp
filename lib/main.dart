@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:geotag/config.dart';
+import 'config.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
-import 'theme.dart';
 import 'routes.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await hiveDBManager.hiveInit();
   runApp(GeotagApp());
 }
 
@@ -22,8 +20,8 @@ class _GeotagAppState extends State<GeotagApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MapPage(),
-      theme: GeotagThemeData().lightTheme,
-      darkTheme: GeotagThemeData().darkTheme,
+      theme: geotagThemeData.lightTheme,
+      darkTheme: geotagThemeData.darkTheme,
       themeMode: currentTheme.currentThemeMode(),
       routes: {
         Routes.mapPage: (context) => MapPage(),

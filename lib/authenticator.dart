@@ -3,11 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Authenticator {
   final _firebaseAuth = FirebaseAuth.instance;
+  AuthenticatorStatus authenticatorStatus = AuthenticatorStatus.undetermined;
+  String userID;
 
-  Future<String> signIn(String email, String password) async {
+  Future<String> logIn(String email, String password) async {
     var result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
     var user = result.user;
+    authenticatorStatus = AuthenticatorStatus.loggedIn;
     return user.uid;
   }
 
@@ -20,10 +23,16 @@ class Authenticator {
 
   Future<FirebaseUser> getCurrentUser() async {
     var user = await _firebaseAuth.currentUser();
+    if (user != null) {
+      userID = user?.uid.toString();
+    }
+    authenticatorStatus = user?.uid == null ? AuthenticatorStatus.notLoggedIn : AuthenticatorStatus.loggedIn;
     return user;
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
+    authenticatorStatus = AuthenticatorStatus.notLoggedIn;
+    userID = '';
     return _firebaseAuth.signOut();
   }
 
@@ -36,4 +45,10 @@ class Authenticator {
     var user = await _firebaseAuth.currentUser();
     return user.isEmailVerified;
   }
+}
+
+enum AuthenticatorStatus {
+  undetermined,
+  notLoggedIn,
+  loggedIn
 }
