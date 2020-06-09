@@ -1,7 +1,7 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geotag/config.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'config.dart';
 
 class CreateTagFAB extends StatefulWidget {
   @override
@@ -9,36 +9,29 @@ class CreateTagFAB extends StatefulWidget {
 }
 
 class _CreateTagFABState extends State<CreateTagFAB> {
-
   bool _savingLocation = false;
   bool _success = false;
 
   @override
   Widget build(BuildContext context) {
-    return !_savingLocation
+    return !_savingLocation 
         ? FloatingActionButton(
-          backgroundColor: Colors.blue,
-          child: FaIcon(FontAwesomeIcons.crosshairs),
-          onPressed: () async {
-            setState(() {
-              _savingLocation = true;
-            });
-            await positionManager.getCurrentPosition();
-            await Future.delayed(Duration(milliseconds: 500));
-            if (positionManager.currentPosition != null) {
-              hiveDBManager.saveTag(currentPosition: positionManager.currentPosition);
-            }
-            setState(() {
-              _success = true;
-            });
-            await Future.delayed(Duration(milliseconds: 500));
+            backgroundColor: Colors.blue,
+            child: FaIcon(FontAwesomeIcons.crosshairs),
+            onPressed: () async {
+              setState(() {_savingLocation = true;});
+              await positionManager.getCurrentPosition();
+              await Future.delayed(Duration(milliseconds: 500));
+              if (positionManager.currentPosition != null) {
+                hiveDBManager.saveTag(currentPosition: positionManager.currentPosition);
+              }
+              setState(() {_success = true;});
             },
           )
         : !_success
           ? CircularProgressIndicator() : FaIcon(FontAwesomeIcons.check);
   }
 }
-
 //import 'package:geolocator/geolocator.dart';
 
 //class CreateTagFAB extends StatefulWidget {
@@ -82,7 +75,7 @@ class _CreateTagFABState extends State<CreateTagFAB> {
 //    return !_savingLocation
 //        ? FloatingActionButton(
 //            backgroundColor: Colors.blue,
-//            child: FaIcon(FontAwesomeIcons.crosshairs),
+//            child: FaIcon(FontAwesomeIcons),
 //            onPressed: () async {
 //              setState(() {
 //                _savingLocation = true;

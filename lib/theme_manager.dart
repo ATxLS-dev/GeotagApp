@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 import 'config.dart';
 
-class CurrentTheme with ChangeNotifier {
-  static bool _isDark = true;
+enum SelectedTheme {
+  light,
+  dark
+}
 
-  ThemeMode currentThemeMode() => _isDark ? ThemeMode.dark : ThemeMode.light;
+class ThemeManager with ChangeNotifier {
+  var _currentTheme = SelectedTheme.light;
 
-  void switchTheme() {
-    _isDark = !_isDark;
-    hiveDBManager.changeTheme();
+  ThemeMode getCurrentThemeMode() {
+    switch (_currentTheme) {
+      case SelectedTheme.light :
+        return ThemeMode.light;
+        break;
+      case SelectedTheme.dark :
+        return ThemeMode.dark;
+        break;
+      default: return ThemeMode.light;
+    }
+  }
+
+  void setTheme(SelectedTheme _selectedTheme) {
+    _currentTheme = _selectedTheme;
+    hiveDBManager.saveTheme(_currentTheme.index);
     notifyListeners();
   }
+
+  SelectedTheme get getTheme => _currentTheme;
 }
 
 class GeotagThemeData {

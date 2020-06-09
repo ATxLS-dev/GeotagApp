@@ -6,7 +6,6 @@ class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 0.0,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -38,16 +37,12 @@ class NavigationDrawer extends StatelessWidget {
       accountEmail: Text('ATLS@mac.com'),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.black,
-        child: Text(
-          'A',
-          style: TextStyle(fontSize: 40.0),
-        ),
+        child: Text('A', style: TextStyle(fontSize: 40.0)),
       ),
     );
   }
 
-  Widget _createDrawerItem(
-      {IconData icon, String text, GestureTapCallback onTap}) {
+  Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) {
     return ListTile(leading: Icon(icon), title: Text(text), onTap: onTap);
   }
 

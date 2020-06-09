@@ -10,7 +10,7 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Map'),
       ),
       drawer: NavigationDrawer(),

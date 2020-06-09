@@ -2,19 +2,17 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 
 class PositionManager {
-  
+
   PositionManager() {
     _initGeolocation();
   }
   
   Position currentPosition;
-  GeolocationStatus _geolocationStatus;
   final _geolocator = Geolocator();
   bool locationServicesEnabled = false;
 
   void _initGeolocation() async {
-    _geolocator..forceAndroidLocationManager = true;
-    _geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
+    var _geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
     if (_geolocationStatus == GeolocationStatus.granted) {
       locationServicesEnabled = true;
     }

@@ -11,17 +11,15 @@ class HiveDBManager {
   }
   
   Box<HiveTagFormat> tagBox;
-  Box<bool> settingsBox;
+  Box<int> settingsBox;
   String currentTagText;
-
-  Box<HiveTagFormat> get getTagBox => tagBox;
 
   Future<void> _initHive() async {
     var _dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(_dir.path);
     Hive.registerAdapter(HiveTagFormatAdapter());
     tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
-    settingsBox = await Hive.openBox<bool>('_settingsBox');
+    settingsBox = await Hive.openBox<int>('_settingsBox');
   }
 
   void saveTag({Position currentPosition}) async {
@@ -32,17 +30,13 @@ class HiveDBManager {
     await tagBox.add(_tag);
   }
 
-  void getTag(int keyValue) => tagBox.get(keyValue);
+  HiveTagFormat getTag(int keyValue) => tagBox.get(keyValue);
 
   void deleteTag(int index) => tagBox.deleteAt(index);
 
-  void editTag(int index, HiveTagFormat editedTag) =>
-      tagBox.put(index, editedTag);
+  void editTag(int index, HiveTagFormat editedTag) => tagBox.put(index, editedTag);
 
-  final themeKey = '_themeKey';
-  void changeTheme() {
-    var _isDark = false;
-    _isDark = !_isDark;
-    settingsBox.put(themeKey, _isDark);
-  }
+  void saveTheme(int themeIndex) => settingsBox.put('_themeKey', themeIndex);
+
+  int getTheme() => settingsBox.get('_themeKey');
 }

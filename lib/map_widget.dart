@@ -76,7 +76,6 @@ class _MapWidgetState extends State<MapWidget> {
   }
 }
 
-
 //class MapWidget extends StatefulWidget {
 //  MapWidget({Key key}) : super(key: key);
 //  @override

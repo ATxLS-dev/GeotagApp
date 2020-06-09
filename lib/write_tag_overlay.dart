@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'hive_db_manager.dart';
+import 'config.dart';
 
 class WriteTagOverlay extends ModalRoute<void> {
   @override
@@ -29,9 +29,14 @@ class WriteTagOverlay extends ModalRoute<void> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[_TagForm(), _OverlayButton()],
+                  children: <Widget>[
+                    _TagForm(),
+                    _OverlayButton()
+                  ],
                 ),
-              ))),
+              )
+          )
+      ),
     );
   }
 
@@ -54,13 +59,12 @@ class _TagForm extends StatefulWidget {
 
 class _TagFormState extends State<_TagForm> {
   final _controller = TextEditingController();
-  final _formKey = GlobalKey<FormState>(debugLabel: '_formKey');
-  final _hiveDB = HiveDBManager();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     _controller.addListener(() {
-      _hiveDB.currentTagText = _controller.text;
+      hiveDBManager.currentTagText = _controller.text;
     });
     super.initState();
   }
@@ -89,7 +93,8 @@ class _TagFormState extends State<_TagForm> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(color: Colors.blue))),
+                    borderSide: BorderSide(color: Colors.blue))
+            ),
           ),
         ),
       ),
@@ -103,7 +108,6 @@ class _OverlayButton extends StatefulWidget {
 }
 
 class _OverlayButtonState extends State<_OverlayButton> {
-  final _hiveDB = HiveDBManager();
 
   bool savingNote = false;
   bool success = false;
@@ -121,25 +125,18 @@ class _OverlayButtonState extends State<_OverlayButton> {
                     icon: Icon(Icons.save_alt),
                     color: Colors.white,
                     onPressed: () async {
-                      setState(() {
-                        savingNote = true;
-                      });
-                      _hiveDB.saveTag();
+                      setState(() {savingNote = true;});
+                      hiveDBManager.saveTag();
                       await Future.delayed(Duration(milliseconds: 500));
-                      setState(() {
-                        success = true;
-                      });
-                      await Future.delayed(Duration(milliseconds: 500));
+                      setState(() {success = true;});
                       Navigator.pop(context);
                     },
-                  )),
+                  )
+              ),
             ),
           )
         : !success
             ? CircularProgressIndicator()
-            : Icon(
-                Icons.check,
-                color: Colors.amber,
-              );
+            : Icon(Icons.check, color: Colors.white);
   }
 }

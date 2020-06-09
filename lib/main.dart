@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'config.dart';
+import 'routes.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
-import 'routes.dart';
+import 'login_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +23,13 @@ class _GeotagAppState extends State<GeotagApp> {
       home: MapPage(),
       theme: geotagThemeData.lightTheme,
       darkTheme: geotagThemeData.darkTheme,
-      themeMode: currentTheme.currentThemeMode(),
+      themeMode: currentTheme.getCurrentThemeMode(),
       routes: {
         Routes.mapPage: (context) => MapPage(),
         Routes.tagListPage: (context) => TagListPage(),
-        Routes.settingsPage: (context) => SettingsPage()
-      },
+        Routes.settingsPage: (context) => SettingsPage(),
+        Routes.loginPage: (context) => LoginPage()
+      }
     );
   }
 }
