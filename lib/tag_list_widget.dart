@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'hive_type.dart';
 import 'config.dart';
 
+//SliverAppBar should clean this up
 class TagListWidget extends StatefulWidget {
   TagListWidget({Key key}) : super(key: key);
   @override
@@ -12,11 +13,9 @@ class TagListWidget extends StatefulWidget {
 
 class _TagListWidgetState extends State<TagListWidget> {
   @override
-  Widget build(BuildContext context) {
-    return hiveDBManager.tagBox != null
-        ? _boxBuilder()
-        : Text('no tag data');
-  }
+  Widget build(BuildContext context) =>
+    hiveDBManager.tagBox != null ? _boxBuilder()
+        : _tagCard(HiveTagFormat(tagLatitude: 37.4219999, tagLongitude: -122.0862462, tagText: 'no tag data'), 0);
 
   Widget _boxBuilder() {
     return ValueListenableBuilder(
@@ -39,11 +38,11 @@ class _TagListWidgetState extends State<TagListWidget> {
         child: Container(
           decoration: BoxDecoration(
               border: Border(
-                  top: BorderSide(width: 4, color: Colors.lightBlue)
+                  top: BorderSide(width: 4, color: Theme.of(context).primaryColor)
               )
           ),
           child: ListTile(
-            title: Text(boxItem.tagText),
+            title: Text(boxItem.tagText ?? 'tag not written'),
             subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),
             trailing: IconButton(
                 icon: Icon(Icons.more_vert, color: Colors.white70),

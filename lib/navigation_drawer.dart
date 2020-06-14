@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'routes.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -11,43 +11,46 @@ class NavigationDrawer extends StatelessWidget {
         children: <Widget>[
           _header(),
           _createDrawerItem(
-              icon: FontAwesomeIcons.bandcamp,
+              icon: FeatherIcons.lifeBuoy,
               text: 'Map',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.mapPage)),
           _createDrawerItem(
-              icon: FontAwesomeIcons.featherAlt,
+              icon: FeatherIcons.mapPin,
               text: 'Tags',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.tagListPage)),
           _createDrawerItem(
-              icon: FontAwesomeIcons.moon,
-              text: 'Settings',
+              icon: FeatherIcons.moon,
+              text: 'Friends',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.settingsPage)),
+          _createDrawerItem(
+              icon: FeatherIcons.bell,
+              text: 'Login/Logout',
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, Routes.loginPage)),
           _footer()
         ],
       ),
     );
   }
 
-  Widget _header() {
-    return UserAccountsDrawerHeader(
-      accountName: Text('Account name'),
-      accountEmail: Text('ATLS@mac.com'),
+  Widget _header() =>
+    UserAccountsDrawerHeader(
+      accountName: Text('Bryce Kormylo'),
+      accountEmail: Text('ATLS@mac.com', style: TextStyle(fontSize: 11.0),),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.black,
         child: Text('A', style: TextStyle(fontSize: 40.0)),
       ),
     );
-  }
 
-  Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) {
-    return ListTile(leading: Icon(icon), title: Text(text), onTap: onTap);
-  }
+  Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) =>
+    ListTile(leading: Icon(icon), title: Text(text), onTap: onTap);
 
-  Widget _footer() {
-    return Container(
+  Widget _footer() =>
+    Container(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
         child: Container(
@@ -55,16 +58,13 @@ class NavigationDrawer extends StatelessWidget {
             children: <Widget>[
               Divider(),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.anchor),
+                leading: Icon(FeatherIcons.settings),
                 title: Text('Settings'),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 24.0),
-              )
+              Padding(padding: EdgeInsets.only(bottom: 24.0))
             ],
           ),
         ),
       ),
     );
-  }
 }

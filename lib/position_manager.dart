@@ -1,21 +1,18 @@
-import 'dart:async';
 import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
 class PositionManager {
 
   PositionManager() {
-    _initGeolocation();
+    _checkGeolocationPermissions();
   }
   
   Position currentPosition;
-  final _geolocator = Geolocator();
-  bool locationServicesEnabled = false;
+  static final _geolocator = Geolocator();
+  var geolocationStatus = GeolocationStatus.unknown;
 
-  void _initGeolocation() async {
-    var _geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
-    if (_geolocationStatus == GeolocationStatus.granted) {
-      locationServicesEnabled = true;
-    }
+  void _checkGeolocationPermissions() async {
+    geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
   }
 
   Future<Position> getCurrentPosition() async {
@@ -23,16 +20,14 @@ class PositionManager {
         desiredAccuracy: LocationAccuracy.best);
     return currentPosition;
   }
-  
-  StreamSubscription<Position> _positionStreamSubscription;
-  Position activePosition;
 
+  Stream<Position> get positionStream => _geolocator.getPositionStream(LocationOptions(accuracy: LocationAccuracy.best));
+
+  Position activePosition;
+  StreamSubscription<Position> _positionStreamSubscription;
   void toggleListening() {
     if (_positionStreamSubscription == null) {
-      final positionStream = _geolocator.getPositionStream(
-          LocationOptions(accuracy: LocationAccuracy.best));
-      _positionStreamSubscription = positionStream.listen(
-              (position) => activePosition = position);
+      _positionStreamSubscription = positionStream.listen((position) => activePosition = position);
       _positionStreamSubscription.pause();
     }
     if (_positionStreamSubscription.isPaused) {
