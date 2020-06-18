@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geotag/config.dart';
 import 'package:geotag/theme_manager.dart';
+import 'package:get/get.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings_page';
@@ -17,20 +18,22 @@ class ThemeModeSwitch extends StatefulWidget {
 }
 
 class _ThemeModeSwitchState extends State<ThemeModeSwitch> {
-  bool _darkModeToggle = false;
+  var _themeMode = ThemeMode.system;
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
+    _themeMode = ThemeController.to.themeMode;
+    //Change to button
+    return RadioListTile(
       title: Text('Dark Mode'),
-      value: _darkModeToggle,
-      onChanged: (bool value) {
+      value: ThemeMode.dark,
+      onChanged: (value) {
         setState(() {
-          _darkModeToggle = value;
-          currentTheme.setTheme(SelectedTheme.dark);
+          _themeMode = value;
+          Get.changeThemeMode(_themeMode);
         });
       },
-      secondary: Icon(Icons.wb_sunny),
+      secondary: Icon(Icons.wb_sunny), groupValue: null,
     );
   }
 }

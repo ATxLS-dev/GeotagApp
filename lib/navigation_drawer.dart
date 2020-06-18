@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'routes.dart';
 
+//Wrap with sized box to shrink width
 class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -64,7 +64,7 @@ class _TagFormState extends State<_TagForm> {
   @override
   void initState() {
     _controller.addListener(() {
-      hiveDBManager.currentTagText = _controller.text;
+      tagDatabase.currentTagText = _controller.text;
     });
     super.initState();
   }
@@ -126,7 +126,7 @@ class _OverlayButtonState extends State<_OverlayButton> {
                     color: Colors.white,
                     onPressed: () async {
                       setState(() {savingNote = true;});
-                      hiveDBManager.saveTag();
+                      tagDatabase.saveTag();
                       await Future.delayed(Duration(milliseconds: 500));
                       setState(() {success = true;});
                       Navigator.pop(context);

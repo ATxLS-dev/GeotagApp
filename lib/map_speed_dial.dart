@@ -16,7 +16,7 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
   Widget build(BuildContext context) {
     return SpeedDial(
       marginBottom: 90.0,
-      animatedIcon: AnimatedIcons.list_view,
+      animatedIcon: AnimatedIcons.list_view, //just child for non animated icon
       animatedIconTheme: IconThemeData(size: 28.0, color: Colors.white),
       closeManually: false,
       curve: Curves.bounceIn,
@@ -26,7 +26,6 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
       heroTag: 'speed-dial-hero-tag',
       backgroundColor: Theme.of(context).primaryColor,
       foregroundColor: Theme.of(context).buttonColor,
-//      child: Icon whatever,
       children: [
         _createTag(),
         _centerMap(),
@@ -42,9 +41,8 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
       onTap: () async {
         await positionManager.getCurrentPosition();
         if (positionManager.currentPosition != null) {
-          hiveDBManager.saveTag(currentPosition: positionManager.currentPosition);
-        }
-        },
+          tagDatabase.saveTag(currentPosition: positionManager.currentPosition);
+        }},
     );
   }
 

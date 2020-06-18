@@ -17,7 +17,7 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
     super.initState();
-    rootBundle.loadString('assets/map_style.txt').then((string) =>
+    rootBundle.loadString('assets/map_theme_dark_bronze.txt').then((string) =>
       _mapStyle = string);
   }
 

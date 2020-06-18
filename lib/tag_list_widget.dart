@@ -14,12 +14,12 @@ class TagListWidget extends StatefulWidget {
 class _TagListWidgetState extends State<TagListWidget> {
   @override
   Widget build(BuildContext context) =>
-    hiveDBManager.tagBox != null ? _boxBuilder()
+    tagDatabase.tagBox != null ? _boxBuilder()
         : _tagCard(HiveTagFormat(tagLatitude: 37.4219999, tagLongitude: -122.0862462, tagText: 'no tag data'), 0);
 
   Widget _boxBuilder() {
     return ValueListenableBuilder(
-        valueListenable: hiveDBManager.tagBox.listenable(),
+        valueListenable: tagDatabase.tagBox.listenable(),
         builder: (context, tagBox, widget) {
           return ListView.builder(
               itemCount: tagBox.length,
@@ -46,7 +46,7 @@ class _TagListWidgetState extends State<TagListWidget> {
             subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),
             trailing: IconButton(
                 icon: Icon(Icons.more_vert, color: Colors.white70),
-                onPressed: () => hiveDBManager.deleteTag(index)
+                onPressed: () => tagDatabase.deleteTag(index)
             ),
           ),
         )

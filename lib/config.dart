@@ -1,12 +1,13 @@
 library config.globals;
 
-import 'hive_db_manager.dart';
-import 'theme_manager.dart';
+import 'hive_database.dart';
 import 'position_manager.dart';
 import 'authenticator.dart';
+import 'theme.dart';
 
-var currentTheme = ThemeManager();
-final hiveDBManager = HiveDBManager();
+final hiveDatabase = HiveDatabase();
+final tagDatabase = TagDatabase();
+final themeDatabase = ThemeDatabase();
 final positionManager = PositionManager();
 final authenticator = Authenticator();
 final geotagThemeData = GeotagThemeData();

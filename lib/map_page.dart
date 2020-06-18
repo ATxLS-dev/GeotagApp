@@ -27,11 +27,11 @@ class MapPage extends StatelessWidget {
       margin: EdgeInsets.only(right: 2.0, bottom: 20.0),
         child: RawMaterialButton(
           elevation: 18.0,
-          fillColor: Theme.of(context).primaryColorDark,
+          fillColor: Theme.of(context).primaryColor,
           shape: CircleBorder(),
           padding: EdgeInsets.all(14.0),
           child: Icon(
-              FeatherIcons.layers,
+              FeatherIcons.anchor,
               size: 28.0,
               color: Theme.of(context).buttonColor
           ),
