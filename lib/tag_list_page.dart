@@ -12,7 +12,7 @@ class TagListPage extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       title: Text('My Tags'),
     ),
-    drawer: NavigationDrawer(),
+    endDrawer: NavigationDrawer(),
     body: TagListWidget(),
   );
 }

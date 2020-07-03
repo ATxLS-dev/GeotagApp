@@ -15,13 +15,13 @@ class GeotagThemeData {
       900: Color(0xff0b2825)
     }),
     brightness: Brightness.light,
-    primaryColor: Color(0xff36bdaf),
+    primaryColor: Color(0xffC05746),
     primaryColorBrightness: Brightness.light,
-    primaryColorLight: Color(0xffd7f4f1),
-    primaryColorDark: Color(0xffA57164),
-    accentColor: Color(0xff39c6b8),
+    primaryColorLight: Color(0xffFFFFFF),
+    primaryColorDark: Color(0xff2E2C24),
+    accentColor: Color(0xffB388EB),
     accentColorBrightness: Brightness.light,
-    canvasColor: Color(0xfffafafa),
+    canvasColor: Color(0xffC05746),
     scaffoldBackgroundColor: Color(0xfffafafa),
     bottomAppBarColor: Color(0xffffffff),
     cardColor: Color(0xffffffff),
@@ -31,7 +31,7 @@ class GeotagThemeData {
     selectedRowColor: Color(0xfff5f5f5),
     unselectedWidgetColor: Color(0x8a000000),
     disabledColor: Color(0x61000000),
-    buttonColor: Color(0xffe0e0e0),
+    buttonColor: Color(0xff2E2C24),
     toggleableActiveColor: Color(0xff2d9f93),
     secondaryHeaderColor: Color(0xffebf9f8),
     textSelectionColor: Color(0xffb0e8e2),
@@ -49,24 +49,24 @@ class GeotagThemeData {
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16),
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: Color(0xff000000), width: 0, style: BorderStyle.none,),
+          color: Color(0xff000000), width: 0, style: BorderStyle.none,
+        ),
         borderRadius: BorderRadius.all(Radius.circular(2.0)),
-      )
-      ,
+      ),
       alignedDropdown: false,
-      buttonColor: Color(0xffe0e0e0),
+      buttonColor: Color(0xffD9A47F),
       disabledColor: Color(0x61000000),
       highlightColor: Color(0x29000000),
-      splashColor: Color(0x1f000000),
+      splashColor: Color(0x1f984234), //for shadows
       focusColor: Color(0x1f000000),
       hoverColor: Color(0x0a000000),
       colorScheme: ColorScheme(
-        primary: Color(0xff36bdaf),
-        primaryVariant: Color(0xff22776e),
+        primary: Color(0xffC05746),
+        primaryVariant: Color(0xff5B271F),
         secondary: Color(0xff39c6b8),
         secondaryVariant: Color(0xff22776e),
-        surface: Color(0xffffffff),
-        background: Color(0xffb0e8e2),
+        surface: Color(0xffD9A47F),
+        background: Color(0xffD9A47F),
         error: Color(0xffd32f2f),
         onPrimary: Color(0xff000000),
         onSecondary: Color(0xff000000),
@@ -149,9 +149,9 @@ class GeotagThemeData {
             color: Color(0xff000000), width: 0, style: BorderStyle.none,),
           borderRadius: BorderRadius.all(Radius.circular(0.0)),
         )
-
     ),
   );
+
   final darkTheme = ThemeData(
     primarySwatch: MaterialColor(4280361249,{
       50: Color( 0xfff2f2f2 ),
@@ -297,7 +297,6 @@ class GeotagThemeData {
           side: BorderSide(color: Color( 0xff000000 ), width: 0, style: BorderStyle.none, ),
           borderRadius: BorderRadius.all(Radius.circular(0.0)),
         )
-
     ),
   );
 

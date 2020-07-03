@@ -16,7 +16,7 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
   Widget build(BuildContext context) {
     return SpeedDial(
       marginBottom: 90.0,
-      animatedIcon: AnimatedIcons.list_view, //just child for non animated icon
+      animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 28.0, color: Colors.white),
       closeManually: false,
       curve: Curves.bounceIn,
@@ -24,8 +24,8 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
       overlayOpacity: 0.5,
       visible: dialVisible,
       heroTag: 'speed-dial-hero-tag',
-      backgroundColor: Theme.of(context).primaryColor,
-      foregroundColor: Theme.of(context).buttonColor,
+      backgroundColor: Theme.of(context).buttonColor,
+      foregroundColor: Colors.white,
       children: [
         _createTag(),
         _centerMap(),
@@ -36,8 +36,8 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
 
   SpeedDialChild _createTag() {
     return SpeedDialChild(
-      backgroundColor: Theme.of(context).primaryColor,
-      child: Icon(FeatherIcons.triangle, color: Theme.of(context).buttonColor),
+      backgroundColor: Theme.of(context).buttonColor,
+      child: Icon(FeatherIcons.anchor, color: Colors.white),
       onTap: () async {
         await positionManager.getCurrentPosition();
         if (positionManager.currentPosition != null) {
@@ -48,16 +48,16 @@ class _MapSpeedDialState extends State<MapSpeedDial> {
 
   SpeedDialChild _centerMap() {
     return SpeedDialChild(
-      backgroundColor: Theme.of(context).primaryColor,
-      child: Icon(FeatherIcons.moon, color: Theme.of(context).buttonColor),
+      backgroundColor: Theme.of(context).buttonColor,
+      child: Icon(FeatherIcons.moon, color: Colors.white),
       onTap: () => print('SECOND CHILD')
     );
   }
 
   SpeedDialChild _enableTagView() {
     return SpeedDialChild(
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(FeatherIcons.mapPin, color: Theme.of(context).buttonColor),
+        backgroundColor: Theme.of(context).buttonColor,
+        child: Icon(FeatherIcons.mapPin, color: Colors.white),
         onTap: () => print('THIRD CHILD')
     );
   }
