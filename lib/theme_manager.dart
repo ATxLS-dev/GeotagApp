@@ -1,26 +1,51 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'dart:convert';
 import 'config.dart';
 
-class ThemeController extends GetxController {
-  static ThemeController get to => Get.find();
+class ThemeController {
 
-  ThemeMode _themeMode;
-  ThemeMode get themeMode => _themeMode;
+  Future<ThemeData> getChosenTheme() async =>
+    jsonDecode(await themeDatabase.getTheme());
 
-  //maybe try onInit()
+  void saveTheme(ThemeData themeData) async =>
+      await themeDatabase.saveTheme(jsonEncode(themeData));
+}
 
-  Future<void> setThemeMode(ThemeMode themeMode) async {
-    Get.changeThemeMode(themeMode);
-    _themeMode = themeMode;
-    update();
-    await themeDatabase.saveTheme(jsonEncode(_themeMode));
-  }
+class ThemeBloc extends ThemeController {
 
-  void getThemeModeFromHive() async {
-    ThemeMode themeMode = jsonDecode(await themeDatabase.getTheme());
-    await setThemeMode(themeMode);
-    update();
+  StreamController streamListController = StreamController<ThemeData>.broadcast();
+
+  Sink get themeSink => streamListController.sink;
+
+  Stream<ThemeData> get themeStream => streamListController.stream;
+
+  void sendThemeData() async {
+    themeSink.add(await getChosenTheme());
   }
 }
+
+//class ThemeController extends GetxController {
+//
+//  ThemeController() {
+//    setThemeMode(ThemeMode.light);
+//  }
+//
+//  static ThemeController get to => Get.find();
+//
+//  ThemeMode _themeMode;
+//  ThemeMode get themeMode => _themeMode;
+//
+//  Future<void> setThemeMode(ThemeMode themeMode) async {
+//    Get.changeThemeMode(themeMode);
+//    _themeMode = themeMode;
+//    update();
+//    await themeDatabase.saveTheme(jsonEncode(_themeMode));
+//  }
+//
+//  void getThemeModeFromHive() async {
+//    ThemeMode themeMode = jsonDecode(await themeDatabase.getTheme());
+//    await setThemeMode(themeMode);
+//    update();
+//  }
+//}

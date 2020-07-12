@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'dart:math' as math;
 import 'navigation_drawer.dart';
-import 'map_speed_dial.dart';
 import 'map_widget.dart';
 
 class MapPage extends StatelessWidget {
@@ -19,7 +18,6 @@ class MapPage extends StatelessWidget {
           navigationButton(context)
         ],
       ),
-      floatingActionButton: MapSpeedDial()
   );
 
   Widget navigationButton(BuildContext context) {

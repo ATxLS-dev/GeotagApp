@@ -6,33 +6,20 @@ import 'hive_type.dart';
 
 class HiveDatabase {
 
-  HiveDatabase() {
-    if (!_isInitialized) {
-      _initHive();
-    }
-  }
-  
-  bool _isInitialized = false;
+  Box<HiveTagFormat> tagBox;
+  String currentTagText;
+  Box<String> settingsBox;
 
-  Future<void> _initHive() async {
+  Future<void> initHive() async {
     var _dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(_dir.path);
     Hive.registerAdapter(HiveTagFormatAdapter());
-    _isInitialized = true;
+    tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
+    settingsBox = await Hive.openBox<String>('_settingsBox');
   }
 }
 
-class TagDatabase extends HiveDatabase{
-
-  TagDatabase() {
-    _initTagDatabase();
-  }
-
-  Box<HiveTagFormat> tagBox;
-  String currentTagText;
-
-  Future<void> _initTagDatabase() async =>
-    tagBox = await Hive.openBox<HiveTagFormat>('_tagBox');
+class TagDatabase extends HiveDatabase {
 
   void saveTag({Position currentPosition}) async {
     var _tag = HiveTagFormat(
@@ -49,16 +36,7 @@ class TagDatabase extends HiveDatabase{
   void editTag(int index, HiveTagFormat editedTag) => tagBox.put(index, editedTag);
 }
 
-class ThemeDatabase extends HiveDatabase{
-
-  ThemeDatabase() {
-    _initThemeDataBase();
-  }
-
-  Box<String> settingsBox;
-
-  Future<void> _initThemeDataBase() async =>
-    settingsBox = await Hive.openBox<String>('_settingsBox');
+class ThemeDatabase extends HiveDatabase {
 
   void saveTheme(String theme) => settingsBox.put('_themeKey', theme);
 

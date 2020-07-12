@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'concave_decoration.dart';
 import 'hive_type.dart';
 import 'config.dart';
 
-//SliverAppBar should clean this up
 class TagListWidget extends StatefulWidget {
   TagListWidget({Key key}) : super(key: key);
   @override
@@ -13,43 +13,53 @@ class TagListWidget extends StatefulWidget {
 
 class _TagListWidgetState extends State<TagListWidget> {
   @override
-  Widget build(BuildContext context) =>
-    tagDatabase.tagBox != null ? _boxBuilder()
-        : _tagCard(HiveTagFormat(tagLatitude: 37.4219999, tagLongitude: -122.0862462, tagText: 'no tag data'), 0);
+  Widget build(BuildContext context) {
+    final innerShadow = ConcaveDecoration(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        colors: [
+          Theme.of(context).buttonTheme.colorScheme.onError,
+          Theme.of(context).buttonTheme.colorScheme.primaryVariant
+        ],
+        depth: 4
+    );
 
-  Widget _boxBuilder() {
+    return tagDatabase.tagBox != null
+        ? _boxBuilder(innerShadow)
+        : _neoTag(
+            HiveTagFormat(
+                tagLatitude: 37.4219999,
+                tagLongitude: -122.0862462,
+                tagText: 'no tag data'),
+            0,
+            innerShadow);
+  }
+
+  Widget _boxBuilder(ConcaveDecoration innerShadow) {
     return ValueListenableBuilder(
         valueListenable: tagDatabase.tagBox.listenable(),
         builder: (context, tagBox, widget) {
           return ListView.builder(
               itemCount: tagBox.length,
               itemBuilder: (context, index) =>
-                  _tagCard(tagBox.get(index), index)
-          );
-        }
-    );
+                  _neoTag(tagBox.get(index), index, innerShadow));
+        });
   }
 
-  Widget _tagCard(HiveTagFormat boxItem, int index) {
-    return Card(
-        borderOnForeground: true,
-        elevation: 5,
-        color: Colors.black12,
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border(
-                  top: BorderSide(width: 4, color: Theme.of(context).primaryColor)
-              )
-          ),
-          child: ListTile(
-            title: Text(boxItem.tagText ?? 'tag not written'),
-            subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),
-            trailing: IconButton(
-                icon: Icon(Icons.more_vert, color: Colors.white70),
-                onPressed: () => tagDatabase.deleteTag(index)
-            ),
-          ),
-        )
+  Widget _neoTag(
+      HiveTagFormat boxItem, int index, ConcaveDecoration innerShadow) {
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Container(
+        decoration: innerShadow,
+        child: ListTile(
+          title: Text(boxItem.tagText ?? 'tag not written'),
+          subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),
+          trailing: IconButton(
+              icon: Icon(Icons.more_vert, color: Colors.black),
+              onPressed: () => tagDatabase.deleteTag(index)),
+        ),
+      ),
     );
   }
 }

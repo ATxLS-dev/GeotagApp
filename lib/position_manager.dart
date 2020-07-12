@@ -15,25 +15,21 @@ class PositionManager {
     geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
   }
 
-  Future<Position> getCurrentPosition() async {
+  Future<Position> syncCurrentPosition() async {
     currentPosition = await _geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     return currentPosition;
   }
+}
 
-  Stream<Position> get positionStream => _geolocator.getPositionStream(LocationOptions(accuracy: LocationAccuracy.best));
+class MapBloc extends PositionManager {
 
-  Position activePosition;
-  StreamSubscription<Position> _positionStreamSubscription;
-  void toggleListening() {
-    if (_positionStreamSubscription == null) {
-      _positionStreamSubscription = positionStream.listen((position) => activePosition = position);
-      _positionStreamSubscription.pause();
-    }
-    if (_positionStreamSubscription.isPaused) {
-      _positionStreamSubscription.resume();
-    } else {
-      _positionStreamSubscription.pause();
-    }
-  }
+  StreamController streamListController = StreamController<Position>.broadcast();
+
+  Sink get positionSink => streamListController.sink;
+
+  Stream<Position> get positionStream => streamListController.stream;
+
+  void streamCurrentPosition() async =>
+    positionSink.add(await syncCurrentPosition());
 }
