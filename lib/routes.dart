@@ -1,5 +1,4 @@
-import 'package:geotag/login_page.dart';
-
+import 'login_page.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';

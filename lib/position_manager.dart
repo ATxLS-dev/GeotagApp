@@ -22,7 +22,7 @@ class PositionManager {
   }
 }
 
-class MapBloc extends PositionManager {
+class PositionBloc extends PositionManager {
 
   StreamController streamListController = StreamController<Position>.broadcast();
 

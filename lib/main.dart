@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geotag/theme_manager.dart';
 import 'config.dart';
 import 'routes.dart';
+import 'hive_database.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
@@ -9,7 +10,8 @@ import 'login_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  hiveDatabase.initHive();
+  final hiveDB = HiveDatabase();
+  hiveDB.initHive();
   runApp(GeotagApp());
 }
 

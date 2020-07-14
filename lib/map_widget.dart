@@ -1,5 +1,6 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,7 +17,7 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   GoogleMapController _controller;
   String _mapStyle;
-  MapBloc mapBloc = MapBloc();
+  PositionBloc mapBloc = PositionBloc();
 
   @override
   void initState() {
@@ -34,8 +35,8 @@ class _MapWidgetState extends State<MapWidget> {
           stream: mapBloc.positionStream,
           builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
             return snapshot.hasData ?
-            _mapView(LatLng(snapshot.data.latitude, snapshot.data.longitude))
-                : CircularProgressIndicator();
+              _mapView(LatLng(snapshot.data.latitude, snapshot.data.longitude))
+                : Center(child: _buildIndeterminateProgress());
           },
         ),
         speedDial(context)
@@ -109,6 +110,20 @@ class _MapWidgetState extends State<MapWidget> {
         backgroundColor: Theme.of(context).buttonColor,
         child: Icon(FeatherIcons.mapPin, color: Colors.white),
         onTap: () => print('THIRD CHILD')
+    );
+  }
+
+  Widget _buildIndeterminateProgress() {
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 12),
+        Flexible(
+          child: NeumorphicProgressIndeterminate(
+            height: 10,
+          ),
+        ),
+        SizedBox(width: 12),
+      ],
     );
   }
 }

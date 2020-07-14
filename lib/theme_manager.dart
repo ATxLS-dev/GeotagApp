@@ -24,28 +24,3 @@ class ThemeBloc extends ThemeController {
     themeSink.add(await getChosenTheme());
   }
 }
-
-//class ThemeController extends GetxController {
-//
-//  ThemeController() {
-//    setThemeMode(ThemeMode.light);
-//  }
-//
-//  static ThemeController get to => Get.find();
-//
-//  ThemeMode _themeMode;
-//  ThemeMode get themeMode => _themeMode;
-//
-//  Future<void> setThemeMode(ThemeMode themeMode) async {
-//    Get.changeThemeMode(themeMode);
-//    _themeMode = themeMode;
-//    update();
-//    await themeDatabase.saveTheme(jsonEncode(_themeMode));
-//  }
-//
-//  void getThemeModeFromHive() async {
-//    ThemeMode themeMode = jsonDecode(await themeDatabase.getTheme());
-//    await setThemeMode(themeMode);
-//    update();
-//  }
-//}
