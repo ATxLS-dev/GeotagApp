@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'config.dart';
+import 'authenticator.dart';
 
 class LoginWidget extends StatefulWidget {
   LoginWidget({this.loginCallback});
@@ -10,10 +10,12 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+
   final _formKey = GlobalKey<FormState>();
 
   String _email, _password, _errorMessage;
   bool _isLoginForm, _isLoading;
+  final authenticator = Authenticator();
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -79,15 +81,11 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Widget showProgressIndicator() {
-    if (_isLoading) {
-      return Center(child: CircularProgressIndicator());
-    }
-    return Container(
-      height: 0.0,
-      width: 0.0
-    );
-  }
+  Widget showProgressIndicator() =>
+    _isLoading
+        ? Center(child: CircularProgressIndicator())
+        : Container(height: 0.0, width: 0.0);
+
 
   Widget showForm() {
     return Container(
@@ -96,19 +94,19 @@ class _LoginWidgetState extends State<LoginWidget> {
         key: _formKey,
         child: ListView(shrinkWrap: true,
           children: <Widget>[
-            showLogo(),
-            showEmailInput(),
-            showPasswordInput(),
-            showPrimaryButton(),
-            showSecondaryButton(),
-            showErrorMessage()
+            logo(),
+            emailInput(),
+            passwordInput(),
+            primaryButton(),
+            secondaryButton(),
+            errorMessage()
           ],
         ),
       ),
     );
   }
 
-  Widget showLogo() {
+  Widget logo() {
     return Hero(
       tag: 'hero',
       child: Padding(
@@ -121,7 +119,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Widget showEmailInput() {
+  Widget emailInput() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
       child: TextFormField(
@@ -136,7 +134,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Widget showPasswordInput() {
+  Widget passwordInput() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: TextFormField(
@@ -151,7 +149,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Widget showPrimaryButton() {
+  Widget primaryButton() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
       child: SizedBox(
@@ -175,24 +173,23 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
-  Widget showSecondaryButton() {
+  Widget secondaryButton() {
     return FlatButton(
       child: Text(
         _isLoginForm ? 'Create an account' : 'Have an account? Sign in',
         style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
       ),
-      onPressed: toggleFormMode,
+      onPressed: toggleFormMode
     );
   }
 
   void toggleFormMode() {
     resetForm();
-    setState(() {
-      _isLoginForm =! _isLoginForm;
-    });
+    setState(() =>
+      _isLoginForm =! _isLoginForm);
   }
 
-  Widget showErrorMessage() {
+  Widget errorMessage() {
     if (_errorMessage.isNotEmpty ?? _errorMessage != null) {
       return Text(
         _errorMessage,
@@ -205,78 +202,8 @@ class _LoginWidgetState extends State<LoginWidget> {
       );
     } else {
       return Container(
-        height: 0.0,
+        height: 0.0
       );
     }
   }
-//  void _showVerifyEmailSentDialog() {
-//    showDialog(
-//      context: context,
-//      builder: (BuildContext context) {
-//        // return object of type Dialog
-//        return AlertDialog(
-//          title: new Text("Verify your account"),
-//          content:
-//              new Text("Link to verify account has been sent to your email"),
-//          actions: <Widget>[
-//            new FlatButton(
-//              child: new Text("Dismiss"),
-//              onPressed: () {
-//                toggleFormMode();
-//                Navigator.of(context).pop();
-//              },
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//  }
 }
-
-//import 'package:flutter/material.dart';
-//import 'package:geotag/authenticator.dart';
-//import 'login_widget.dart';
-//import 'map_page.dart';
-//import 'config.dart';
-//
-//class RootPage extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() => _RootPageState();
-//}
-//
-//class _RootPageState extends State<RootPage> {
-//
-//  //Wont work at all but I hated how he built his code.
-//  //Manage this shit with authenticator.  Just kill this root page.
-//  //Login isn't even necessary anyways, realistically I don't even need it.
-//  @override
-//  Widget build(BuildContext context) {
-//    switch (authenticator.authenticatorStatus) {
-//      case AuthenticatorStatus.undetermined:
-//        return buildWaitingScreen();
-//        break;
-//      case AuthenticatorStatus.notLoggedIn:
-//        return LoginPage();
-//        break;
-//      case AuthenticatorStatus.loggedIn:
-//        if (authenticator.userID.isNotEmpty && authenticator.userID != null) {
-//          //CHANGE TO MAP PAGE
-//          return MapPage();
-//        } else {
-//          return buildWaitingScreen();
-//        }
-//        break;
-//      default:
-//        return buildWaitingScreen();
-//    }
-//  }
-//
-//  Widget buildWaitingScreen() {
-//    return Scaffold(
-//      body: Container(
-//        alignment: Alignment.center,
-//        child: CircularProgressIndicator(),
-//      ),
-//    );
-//  }
-//}

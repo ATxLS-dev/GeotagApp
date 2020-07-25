@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GeotagThemeData {
+
   final lightTheme = ThemeData(
     primarySwatch: MaterialColor(4281777583, {
       50: Color(0xffebf9f8),
@@ -23,7 +24,7 @@ class GeotagThemeData {
     accentColor: Color(0xffB388EB),
     accentColorBrightness: Brightness.light,
     canvasColor: Color(0xffC05746),
-    scaffoldBackgroundColor: Color(0xffF0E0D1),
+    scaffoldBackgroundColor: Color(0xffF8F4EC),
     bottomAppBarColor: Color(0xffffffff),
     cardColor: Color(0xffffffff),
     dividerColor: Color(0x1f000000),
@@ -93,62 +94,6 @@ class GeotagThemeData {
       color: Color(0xff000000),
       opacity: 1,
       size: 24,
-    ),
-    sliderTheme: SliderThemeData(
-      activeTrackColor: null,
-      inactiveTrackColor: null,
-      disabledActiveTrackColor: null,
-      disabledInactiveTrackColor: null,
-      activeTickMarkColor: null,
-      inactiveTickMarkColor: null,
-      disabledActiveTickMarkColor: null,
-      disabledInactiveTickMarkColor: null,
-      thumbColor: null,
-      disabledThumbColor: null,
-      thumbShape: null,
-      overlayColor: null,
-      valueIndicatorColor: null,
-      valueIndicatorShape: null,
-      showValueIndicator: null,
-      valueIndicatorTextStyle: TextStyle(
-        color: Color(0xdd000000),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-    ),
-    tabBarTheme: TabBarTheme(
-      indicatorSize: TabBarIndicatorSize.tab,
-      labelColor: Color(0xdd000000),
-      unselectedLabelColor: Color(0xb2000000),
-    ),
-    chipTheme: ChipThemeData(
-      backgroundColor: Color(0x1f000000),
-      brightness: Brightness.light,
-      deleteIconColor: Color(0xde000000),
-      disabledColor: Color(0x0c000000),
-      labelPadding: EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
-      labelStyle: TextStyle(
-        color: Color(0xde000000),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-      padding: EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
-      secondaryLabelStyle: TextStyle(
-        color: Color(0x3d000000),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-      secondarySelectedColor: Color(0x3d36bdaf),
-      selectedColor: Color(0x3d000000),
-      shape: StadiumBorder(
-          side: BorderSide(
-        color: Color(0xff000000),
-        width: 0,
-        style: BorderStyle.none,
-      )),
     ),
     dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(
@@ -253,61 +198,10 @@ class GeotagThemeData {
       opacity: 1,
       size: 24,
     ),
-    sliderTheme: SliderThemeData(
-      activeTrackColor: null,
-      inactiveTrackColor: null,
-      disabledActiveTrackColor: null,
-      disabledInactiveTrackColor: null,
-      activeTickMarkColor: null,
-      inactiveTickMarkColor: null,
-      disabledActiveTickMarkColor: null,
-      disabledInactiveTickMarkColor: null,
-      thumbColor: null,
-      disabledThumbColor: null,
-      thumbShape: null,
-      overlayColor: null,
-      valueIndicatorColor: null,
-      valueIndicatorShape: null,
-      showValueIndicator: null,
-      valueIndicatorTextStyle: TextStyle(
-        color: Color(0xdd000000),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-    ),
     tabBarTheme: TabBarTheme(
       indicatorSize: TabBarIndicatorSize.tab,
       labelColor: Color(0xffffffff),
       unselectedLabelColor: Color(0xb2ffffff),
-    ),
-    chipTheme: ChipThemeData(
-      backgroundColor: Color(0x1fffffff),
-      brightness: Brightness.dark,
-      deleteIconColor: Color(0xdeffffff),
-      disabledColor: Color(0x0cffffff),
-      labelPadding: EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
-      labelStyle: TextStyle(
-        color: Color(0xdeffffff),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-      padding: EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
-      secondaryLabelStyle: TextStyle(
-        color: Color(0x3dffffff),
-        fontSize: null,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.normal,
-      ),
-      secondarySelectedColor: Color(0x3d212121),
-      selectedColor: Color(0x3dffffff),
-      shape: StadiumBorder(
-          side: BorderSide(
-        color: Color(0xff000000),
-        width: 0,
-        style: BorderStyle.none,
-      )),
     ),
     dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(

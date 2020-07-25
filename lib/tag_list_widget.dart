@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'concave_decoration.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'hive_type.dart';
 import 'config.dart';
 
@@ -14,44 +14,36 @@ class TagListWidget extends StatefulWidget {
 class _TagListWidgetState extends State<TagListWidget> {
   @override
   Widget build(BuildContext context) {
-    final innerShadow = ConcaveDecoration(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-        colors: [
-          Theme.of(context).buttonTheme.colorScheme.onError,
-          Theme.of(context).buttonTheme.colorScheme.primaryVariant
-        ],
-        depth: 4
-    );
 
     return tagDatabase.tagBox != null
-        ? _boxBuilder(innerShadow)
-        : _neoTag(
-            HiveTagFormat(
+        ? _boxBuilder()
+          : _neoTag(
+              HiveTagFormat(
                 tagLatitude: 37.4219999,
                 tagLongitude: -122.0862462,
                 tagText: 'no tag data'),
-            0,
-            innerShadow);
+              0);
   }
 
-  Widget _boxBuilder(ConcaveDecoration innerShadow) {
+  Widget _boxBuilder() {
     return ValueListenableBuilder(
         valueListenable: tagDatabase.tagBox.listenable(),
         builder: (context, tagBox, widget) {
           return ListView.builder(
               itemCount: tagBox.length,
               itemBuilder: (context, index) =>
-                  _neoTag(tagBox.get(index), index, innerShadow));
+                  _neoTag(tagBox.get(index), index));
         });
   }
 
-  Widget _neoTag(
-      HiveTagFormat boxItem, int index, ConcaveDecoration innerShadow) {
+  Widget _neoTag(HiveTagFormat boxItem, int index) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Container(
-        decoration: innerShadow,
+      child: Neumorphic(
+        style: NeumorphicStyle(
+          depth: -4.0,
+          color: Theme.of(context).scaffoldBackgroundColor
+        ),
         child: ListTile(
           title: Text(boxItem.tagText ?? 'tag not written'),
           subtitle: Text('${boxItem.tagLatitude}, ${boxItem.tagLongitude}'),

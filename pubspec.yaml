@@ -46,8 +46,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/map_theme_burnt.txt
-    - assets/map_theme_dark_bronze.txt
 
 flutter_icons:
   ios: true

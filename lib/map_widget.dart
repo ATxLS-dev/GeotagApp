@@ -15,9 +15,13 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
+
   GoogleMapController _controller;
-  String _mapStyle;
   PositionBloc mapBloc = PositionBloc();
+
+  String _mapStyle;
+  BitmapDescriptor pinIcon;
+  Set<Marker> markers = {};
 
   @override
   void initState() {
@@ -25,6 +29,10 @@ class _MapWidgetState extends State<MapWidget> {
     rootBundle.loadString('assets/map_theme_burnt.txt')
         .then((string) => _mapStyle = string);
     mapBloc.streamCurrentPosition();
+    BitmapDescriptor
+        .fromAssetImage(ImageConfiguration(
+            devicePixelRatio: 2.5), 'assets/tag_markers/tag.png')
+      .then((value) => pinIcon = value);
   }
 
   @override
@@ -36,8 +44,8 @@ class _MapWidgetState extends State<MapWidget> {
           builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
             return snapshot.hasData ?
               _mapView(LatLng(snapshot.data.latitude, snapshot.data.longitude))
-                : Center(child: _buildIndeterminateProgress());
-          },
+                : _buildIndeterminateProgress();
+            },
         ),
         speedDial(context)
       ]
@@ -49,7 +57,16 @@ class _MapWidgetState extends State<MapWidget> {
       onMapCreated: (GoogleMapController controller) {
         _controller = controller;
         _controller.setMapStyle(_mapStyle);
+        setState(() {
+          markers.add(
+              Marker(
+                  markerId: MarkerId('<MARKER_ID>'),
+                  position: _latLngSnapshot,
+                  icon: pinIcon
+              ));
+        });
         },
+      markers: markers,
       myLocationButtonEnabled: false,
       initialCameraPosition: CameraPosition(
           target: _latLngSnapshot,
@@ -100,7 +117,6 @@ class _MapWidgetState extends State<MapWidget> {
         child: Icon(FeatherIcons.moon, color: Colors.white),
         onTap: () => {
           mapBloc.streamCurrentPosition(),
-          print('recenter map')
         }
     );
   }
@@ -114,16 +130,22 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   Widget _buildIndeterminateProgress() {
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 12),
-        Flexible(
-          child: NeumorphicProgressIndeterminate(
-            height: 10,
-          ),
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 35.0, right: 100.0, bottom: 55.0),
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 12),
+            Flexible(
+              child: NeumorphicProgressIndeterminate(
+                height: 10,
+              ),
+            ),
+            SizedBox(width: 12),
+          ],
         ),
-        SizedBox(width: 12),
-      ],
+      ),
     );
   }
 }

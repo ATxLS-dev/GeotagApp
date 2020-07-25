@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geotag/theme_manager.dart';
-import 'config.dart';
 import 'routes.dart';
 import 'hive_database.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
 import 'login_page.dart';
+import 'theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final hiveDB = HiveDatabase();
-  hiveDB.initHive();
+  final hiveDatabase = HiveDatabase();
+  hiveDatabase.initialize();
   runApp(GeotagApp());
 }
 
@@ -22,13 +22,8 @@ class GeotagApp extends StatefulWidget {
 
 class _GeotagAppState extends State<GeotagApp> {
 
-  ThemeBloc themeBloc = ThemeBloc();
-
-  @override
-  void initState() {
-    super.initState();
-    themeBloc.themeStream;
-  }
+  final geotagThemeData = GeotagThemeData();
+  final themeBloc = ThemeBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +32,7 @@ class _GeotagAppState extends State<GeotagApp> {
       builder: (context, snapshot) {
         return MaterialApp(
             home: MapPage(),
-            theme: snapshot.hasData ? snapshot.data : geotagThemeData.lightTheme,
+            theme: snapshot.data ?? geotagThemeData.lightTheme,
             routes: {
               Routes.mapPage: (context) => MapPage(),
               Routes.tagListPage: (context) => TagListPage(),

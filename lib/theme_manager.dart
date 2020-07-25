@@ -1,26 +1,40 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'config.dart';
+import 'theme.dart';
+import 'hive_database.dart';
 
-class ThemeController {
+enum ChosenTheme { lightTheme, darkTheme }
 
-  Future<ThemeData> getChosenTheme() async =>
-    jsonDecode(await themeDatabase.getTheme());
+class ThemeController extends HiveDatabase {
 
-  void saveTheme(ThemeData themeData) async =>
-      await themeDatabase.saveTheme(jsonEncode(themeData));
+  final geotagThemeData = GeotagThemeData();
+  ChosenTheme chosenTheme;
+
+  void saveTheme(int themeIndex) => settingsBox.put('themeKey', themeIndex);
+
+  ThemeData getChosenTheme() {
+    chosenTheme = ChosenTheme.values[settingsBox.get('themeKey')];
+    switch (chosenTheme) {
+      case ChosenTheme.lightTheme:
+        return geotagThemeData.lightTheme;
+        break;
+      case ChosenTheme.darkTheme:
+        return geotagThemeData.darkTheme;
+        break;
+      default:
+        return geotagThemeData.lightTheme;
+        break;
+    }
+  }
 }
 
 class ThemeBloc extends ThemeController {
 
-  StreamController streamListController = StreamController<ThemeData>.broadcast();
+  var streamListController = StreamController<ThemeData>.broadcast();
 
   Sink get themeSink => streamListController.sink;
 
   Stream<ThemeData> get themeStream => streamListController.stream;
 
-  void sendThemeData() async {
-    themeSink.add(await getChosenTheme());
-  }
+  void sendThemeData() => themeSink.add(getChosenTheme());
 }
