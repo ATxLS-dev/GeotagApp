@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'navigation_drawer.dart';
 import 'map_widget.dart';
+import 'navigation_button.dart';
+import 'map_buttons.dart';
 
 class MapPage extends StatelessWidget {
   static const String routeName = '/map_page';
@@ -13,6 +15,7 @@ class MapPage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           MapWidget(),
+          MapButtons(),
           NavigationButton(_scaffoldKey)
         ],
       ),

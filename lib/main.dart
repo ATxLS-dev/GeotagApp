@@ -31,6 +31,7 @@ class _GeotagAppState extends State<GeotagApp> {
       stream: themeBloc.themeStream,
       builder: (context, snapshot) {
         return MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: MapPage(),
             theme: snapshot.data ?? geotagThemeData.lightTheme,
             routes: {

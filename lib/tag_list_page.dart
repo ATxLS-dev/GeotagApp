@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'tag_list_widget.dart';
 import 'navigation_drawer.dart';
+import 'navigation_button.dart';
 import 'top_bar.dart';
 
 class TagListPage extends StatelessWidget {
@@ -20,7 +21,7 @@ class TagListPage extends StatelessWidget {
           Wrap(
             runSpacing: 10.0,
             children: <Widget>[
-              TopBar(),
+              TopBar('My Geotags', true),
               TagListWidget(),
             ],
           ),

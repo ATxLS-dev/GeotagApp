@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'dart:math' as math;
 import 'routes.dart';
 
 enum NavRadio { mapPage, listPage, settingsPage, accountPage, otherPage }
@@ -17,36 +16,45 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return Container(
+      padding: EdgeInsets.only(bottom: 140.0),
       alignment: Alignment.bottomRight,
       child: SizedBox(
-          width: 100.0,
-          height: 376.0,
+          width: 84.0,
+          height: 340.0,
           child: Theme(
               data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
               child: Drawer(
                 elevation: 0.0,
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18.0),
+                child: Neumorphic(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 18.0, 10.0),
+                  style: NeumorphicStyle(
+                      depth: -4.0,
+                      intensity: 1,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: NeumorphicBorder(
+                          color: Color(0xffF8F4EC),
+                          width: 2.8
+                      ),
+                      boxShape: NeumorphicBoxShape.roundRect(
+                          BorderRadius.only(
+                              topLeft: Radius.circular(37.0),
+                              bottomLeft: (Radius.circular(37.0))
+                          )
+                      )
+                  ),
                     child: NeumorphicTheme(
                       theme: NeumorphicThemeData(
                         baseColor: NeumorphicColors.background,
                         lightSource: LightSource.topLeft,
                       ),
-                      child: NeumorphicBackground(
-                        borderRadius: BorderRadius.circular(18.0),
-                        child: Center(
-                            child: _navRadioSwitch(navRadio)
+                      child: _navRadioSwitch(navRadio)
                         ),
                       ),
                     ),
                   ),
                 ),
-              )
-          )
-      ),
+
     );
   }
 
@@ -93,7 +101,7 @@ class _NavRadioField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      runSpacing: 18.0,
+      runSpacing: 10.0,
       children: <Widget>[
         neumorphicRadio(
             navValue: NavRadio.mapPage,
@@ -119,51 +127,20 @@ class _NavRadioField extends StatelessWidget {
       value: navValue,
       groupValue: navRadio,
       style: NeumorphicRadioStyle(
-          selectedDepth: -12.0,
-          unselectedDepth: 12.0,
-          intensity: 0.75,
-          boxShape: NeumorphicBoxShape
-              .roundRect(BorderRadius.all(Radius.circular(14.0))),
+          selectedColor: Color(0xff2E2C24),
+          unselectedColor: Color(0xff2E2C24),
+          selectedDepth: -4.0,
+          unselectedDepth: 4.0,
+          intensity: 1.0,
+          boxShape: NeumorphicBoxShape.circle(),
           border: NeumorphicBorder(
-              isEnabled: true,
-              color: Colors.black.withOpacity(0.5),
-              width: 1.0)
+              color: Color(0xffF8F4EC),
+              width: 2.8)
       ),
       onChanged: (value) => onChanged(value),
       child: Container(
-          height: 50.0,
-          width: 50.0,
-          child: Icon(icon)
-      ),
-    );
-  }
-}
-
-class NavigationButton extends StatelessWidget {
-
-  NavigationButton(this._scaffoldKey);
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomRight,
-      margin: EdgeInsets.only(right: 2.0, bottom: 20.0),
-      child: RawMaterialButton(
-        elevation: 18.0,
-        fillColor: Theme.of(context).buttonColor,
-        shape: CircleBorder(),
-        padding: EdgeInsets.all(14.0),
-        child: Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.rotationY(math.pi),
-            child: Icon(
-                FeatherIcons.sidebar,
-                size: 28.0,
-                color: Colors.white)
-        ),
-        onPressed: () =>
-            _scaffoldKey.currentState.openEndDrawer(),
+          padding: EdgeInsets.all(14.0),
+          child: Icon(icon, color: Colors.white, size: 28.0)
       ),
     );
   }

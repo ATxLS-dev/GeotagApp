@@ -3,67 +3,75 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
 class TopBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  TopBar(this.titleText, this.hasButton);
 
-    final neumorphicStyle = NeumorphicStyle(
+  @required
+  final String titleText;
+  @required
+  final bool hasButton;
+
+  static final _cornerRadius = Radius.circular(30.0);
+
+  NeumorphicStyle _neumorphicStyle({double depth, NeumorphicBoxShape boxShape, Color color}) {
+    return NeumorphicStyle(
         shape: NeumorphicShape.flat,
-        boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.all(Radius.circular(15.0))
-        ),
-        depth: 4,
-        intensity: 0.7,
-        border: NeumorphicBorder(color: Colors.white.withOpacity(0.5), width: 1.0),
-        color: Theme.of(context).scaffoldBackgroundColor
-    );
-
-    return header(neumorphicStyle);
+        boxShape: boxShape,
+        depth: depth,
+        intensity: 1,
+        border: NeumorphicBorder(color: Color(0xffF8F4EC), width: 2.8),
+        color: color);
   }
 
-  Widget header(NeumorphicStyle neumorphicStyle) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20.0, 46.0, 20.0, 0.0),
-      child: Neumorphic(
-        style: neumorphicStyle,
-        child: Container(
-          padding: EdgeInsets.only(left: 15.0, top: 15.0, right: 15.0, bottom: 15.0),
-          child: Row(
-            children: <Widget>[
-              title(),
-              Expanded(child: Container()),
-              sortButton(neumorphicStyle)
-            ],
-          ),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 44.0),
+      child: Row(
+        children: <Widget>[
+          title(),
+          Expanded(child: Container()),
+          hasButton ? sortButton() : null
+        ],
       ),
     );
   }
-  Widget sortButton(NeumorphicStyle neumorphicStyle) {
-    return Align(
-        alignment: Alignment.topRight,
-        child: SizedBox(
-          height: 30.0,
-          width: 60.0,
-          child: Neumorphic(
-            style: neumorphicStyle,
-            child: Icon(FeatherIcons.arrowUpLeft),
-          ),
-        )
+
+  Widget sortButton() {
+    return Neumorphic(
+      padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
+      style: _neumorphicStyle(
+          depth: -4.0,
+          color: Colors.transparent,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+              topLeft: _cornerRadius, bottomLeft: _cornerRadius))),
+      child: Container(
+        child: Neumorphic(
+          style: _neumorphicStyle(
+            depth: 4.0,
+            boxShape: NeumorphicBoxShape.circle(),
+            color: Color(0xff2E2C24)),
+          padding: EdgeInsets.all(8.0),
+          child: Icon(FeatherIcons.moreHorizontal,
+              color: Colors.white, size: 24.0),
+        ),
+      ),
     );
   }
 
   Widget title() {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Container(
-        child: Text(
-          'My Tags',
-          style: TextStyle(
-            fontSize: 24.0,
-            fontFamily: 'sficonsets',
+    return Neumorphic(
+        padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
+        style: _neumorphicStyle(
+            depth: 2.0,
+            color: Colors.transparent,
+            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+                topRight: _cornerRadius, bottomRight: _cornerRadius))),
+        child: Container(
+          child: Text(
+            titleText,
+            style: TextStyle(fontSize: 24.0),
           ),
-        ),
-      ),
+        )
     );
   }
 }
