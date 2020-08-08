@@ -4,8 +4,9 @@ import 'routes.dart';
 import 'hive_database.dart';
 import 'tag_list_page.dart';
 import 'map_page.dart';
-import 'settings_page.dart';
+import 'theme_changer_page.dart';
 import 'login_page.dart';
+import 'settings_page.dart';
 import 'theme.dart';
 
 void main() {
@@ -33,12 +34,13 @@ class _GeotagAppState extends State<GeotagApp> {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: MapPage(),
-            theme: snapshot.data ?? geotagThemeData.lightTheme,
+            theme: snapshot.data ?? geotagThemeData.light,
             routes: {
               Routes.mapPage: (context) => MapPage(),
               Routes.tagListPage: (context) => TagListPage(),
-              Routes.settingsPage: (context) => SettingsPage(),
-              Routes.loginPage: (context) => LoginPage()
+              Routes.themeChangerPage: (context) => ThemeChangerPage(),
+              Routes.loginPage: (context) => LoginPage(),
+              Routes.settingsPage: (context) => SettingsPage()
             }
         );
       },

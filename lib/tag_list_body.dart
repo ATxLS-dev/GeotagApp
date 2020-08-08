@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'config.dart';
 import 'hive_type.dart';
+import 'default_neumorphic_style.dart';
 
 class TagListBody extends StatefulWidget {
   TagListBody({Key key}) : super(key: key);
@@ -47,11 +48,9 @@ class _TagListBodyState extends State<TagListBody> {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0),
       child: Neumorphic(
-        style: NeumorphicStyle(
+        style: defaultNeumorphicStyle(
           depth: -4.0,
-          intensity: 1,
           color: Colors.transparent,
-            border: NeumorphicBorder(color: Color(0xffF8F4EC), width: 2.8),
             boxShape: NeumorphicBoxShape.roundRect(
               BorderRadius.only(
                   topRight: Radius.circular(60.0),
@@ -68,10 +67,8 @@ class _TagListBodyState extends State<TagListBody> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Neumorphic(
-                      style: NeumorphicStyle(
+                      style: defaultNeumorphicStyle(
                         depth: 8.0,
-                        intensity: 1.0,
-                        border: NeumorphicBorder(color: Color(0xffF8F4EC), width: 2.8),
                         boxShape: NeumorphicBoxShape.circle(),
                       ),
                       child: CircleAvatar(

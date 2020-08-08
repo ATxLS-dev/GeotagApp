@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 import 'hive_type.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 class TagDatabase extends HiveDatabase {
 
   Box<HiveTagFormat> tagBox;

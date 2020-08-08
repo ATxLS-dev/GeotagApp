@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geotag/top_bar.dart';
-import 'login_body.dart';
-import 'navigation_button.dart';
 import 'navigation_drawer.dart';
+import 'navigation_button.dart';
+import 'theme_changer_body.dart';
 
-class LoginPage extends StatelessWidget {
+class ThemeChangerPage extends StatelessWidget {
 
-  static const String routeName = '/login_page';
+  static const String routeName = '/theme_changer_page';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: NavigationDrawer(),
@@ -20,13 +20,13 @@ class LoginPage extends StatelessWidget {
           Wrap(
             runSpacing: 10.0,
             children: <Widget>[
-              TopBar('My Account', true),
-              LoginBody()
+              TopBar('App Theme', false),
+              ThemeChangerBody()
             ],
           ),
-          NavigationButton(_scaffoldKey)
+        NavigationButton(_scaffoldKey)
         ],
-      ),
+      )
     );
   }
 }

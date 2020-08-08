@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GeotagThemeData {
 
-  final lightTheme = ThemeData(
+  final light = ThemeData(
     primarySwatch: MaterialColor(4281777583, {
       50: Color(0xffebf9f8),
       100: Color(0xffd7f4f1),
@@ -26,7 +26,7 @@ class GeotagThemeData {
     ),
   );
 
-  final darkTheme = ThemeData(
+  final dark = ThemeData(
     primarySwatch: MaterialColor(4280361249, {
       50: Color(0xfff2f2f2),
       100: Color(0xffe6e6e6),
@@ -50,7 +50,6 @@ class GeotagThemeData {
     ),
   );
 }
-
 
 //import 'package:flutter/material.dart';
 //

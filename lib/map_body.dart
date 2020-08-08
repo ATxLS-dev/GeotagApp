@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geotag/hive_database.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'config.dart';
 import 'position_manager.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'default_neumorphic_style.dart';
 
 class MapBody extends StatefulWidget {
   MapBody({Key key}) : super(key: key);
@@ -16,6 +16,7 @@ class MapBody extends StatefulWidget {
 }
 
 class _MapBodyState extends State<MapBody> {
+
   GoogleMapController _controller;
   final PositionBloc mapBloc = PositionBloc();
 
@@ -78,16 +79,6 @@ class _MapBodyState extends State<MapBody> {
   }
 
 
-  NeumorphicStyle _neumorphicStyle({double depth, NeumorphicBoxShape boxShape, Color color}) {
-    return NeumorphicStyle(
-        shape: NeumorphicShape.flat,
-        boxShape: boxShape,
-        depth: depth,
-        intensity: 1,
-        border: NeumorphicBorder(color: Color(0xffF8F4EC), width: 2.8),
-        color: color);
-  }
-
   Widget mapButtons(BuildContext context) {
     final _runSpacing = 14.0;
     return Container(
@@ -118,7 +109,7 @@ class _MapBodyState extends State<MapBody> {
     final _cornerRadius = Radius.circular(30.0);
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: _neumorphicStyle(
+      style: defaultNeumorphicStyle(
           depth: -4.0,
           color: Color(0xffF8F4EC),
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
@@ -130,7 +121,7 @@ class _MapBodyState extends State<MapBody> {
         ),
         child: NeumorphicButton(
           onPressed: onPressed,
-          style: _neumorphicStyle(
+          style: defaultNeumorphicStyle(
               depth: 4.0,
               boxShape: NeumorphicBoxShape.circle(),
               color: Color(0xff2E2C24)),
