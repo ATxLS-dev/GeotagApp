@@ -3,6 +3,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'routes.dart';
 
+//May need to be consolidated into one stateful widget to preserve button pressed
 enum NavRadio { mapPage, listPage, settingsPage, accountPage, otherPage }
 
 class NavigationDrawer extends StatefulWidget {
@@ -31,7 +32,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   style: NeumorphicStyle(
                       depth: -4.0,
                       intensity: 1,
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).backgroundColor,
                       border: NeumorphicBorder(
                           color: Color(0xffF8F4EC),
                           width: 2.8
@@ -39,7 +40,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.only(
                               topLeft: Radius.circular(37.0),
-                              bottomLeft: (Radius.circular(37.0))
+                              bottomLeft: Radius.circular(37.0)
                           )
                       )
                   ),

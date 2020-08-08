@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'theme.dart';
 import 'hive_database.dart';
 
@@ -7,10 +8,15 @@ enum ChosenTheme { lightTheme, darkTheme }
 
 class ThemeController extends HiveDatabase {
 
+  Box<int> settingsBox;
+
   final geotagThemeData = GeotagThemeData();
   ChosenTheme chosenTheme;
 
-  void saveTheme(int themeIndex) => settingsBox.put('themeKey', themeIndex);
+  void saveTheme(int themeIndex) async {
+    settingsBox = await Hive.openBox<int>('settings');
+    await settingsBox.put('themeKey', themeIndex);
+  }
 
   ThemeData getChosenTheme() {
     chosenTheme = ChosenTheme.values[settingsBox.get('themeKey')];

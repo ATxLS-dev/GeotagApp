@@ -51,8 +51,3 @@ flutter_icons:
   ios: true
   android: true
   image_path: "assets/geotag_icon/1024.png"
-
-fonts:
-  - family: sficonsets
-    fonts:
-      - assets: packages/flutter_sfsymbols/fonts/sficonsets.ttf

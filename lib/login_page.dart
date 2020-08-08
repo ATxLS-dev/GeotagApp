@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_widget.dart';
+import 'login_body.dart';
 import 'navigation_drawer.dart';
 
 class LoginPage extends StatelessWidget {
@@ -12,6 +12,6 @@ class LoginPage extends StatelessWidget {
         title: Text('Login')
       ),
       drawer: NavigationDrawer(),
-      body: LoginWidget()
+      body: LoginBody()
   );
 }

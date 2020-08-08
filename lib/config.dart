@@ -1,5 +1,5 @@
 library config.globals;
 
-import 'hive_database.dart';
+import 'tag_manager.dart';
 
 final tagDatabase = TagDatabase();

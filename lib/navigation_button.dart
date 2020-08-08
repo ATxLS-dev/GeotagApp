@@ -23,9 +23,9 @@ class NavigationButton extends StatelessWidget {
           style: NeumorphicStyle(
               depth: -4.0,
               intensity: 1,
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Theme.of(context).backgroundColor,
               border: NeumorphicBorder(
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: Theme.of(context).backgroundColor,
                   width: 2.8),
               boxShape: NeumorphicBoxShape.roundRect(
                   BorderRadius.only(
@@ -39,7 +39,7 @@ class NavigationButton extends StatelessWidget {
               shape: NeumorphicShape.flat,
               boxShape: NeumorphicBoxShape.circle(),
                 border: NeumorphicBorder(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme.of(context).backgroundColor,
                     width: 2.8)
             ),
             padding: EdgeInsets.all(14.0),

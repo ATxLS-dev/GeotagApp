@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'authenticator.dart';
 
-class LoginWidget extends StatefulWidget {
-  LoginWidget({this.loginCallback});
+class LoginBody extends StatefulWidget {
+  LoginBody({this.loginCallback});
   final VoidCallback loginCallback;
 
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+  _LoginBodyState createState() => _LoginBodyState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginBodyState extends State<LoginBody> {
 
   final _formKey = GlobalKey<FormState>();
 

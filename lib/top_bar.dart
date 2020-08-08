@@ -30,7 +30,7 @@ class TopBar extends StatelessWidget {
         children: <Widget>[
           title(),
           Expanded(child: Container()),
-          hasButton ? sortButton() : null
+          hasButton ? sortButton() : Expanded(child: Container())
         ],
       ),
     );

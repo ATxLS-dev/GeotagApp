@@ -3,36 +3,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'hive_type.dart';
 import 'config.dart';
+import 'hive_type.dart';
 
-class TagListWidget extends StatefulWidget {
-  TagListWidget({Key key}) : super(key: key);
+class TagListBody extends StatefulWidget {
+  TagListBody({Key key}) : super(key: key);
   @override
-  _TagListWidgetState createState() => _TagListWidgetState();
+  _TagListBodyState createState() => _TagListBodyState();
 }
 
-class _TagListWidgetState extends State<TagListWidget> {
+class _TagListBodyState extends State<TagListBody> {
+
   @override
   Widget build(BuildContext context) {
     return tagDatabase.tagBox != null
         ? _boxBuilder()
         : _individualTag(
-        HiveTagFormat(
+          HiveTagFormat(
             tagLatitude: 37.4219999,
             tagLongitude: -122.0862462,
             tagText: 'Yosemite Valley'),
-        0);
+          0);
   }
 
   Widget _boxBuilder() {
     return ValueListenableBuilder(
         valueListenable: tagDatabase.tagBox.listenable(),
         builder: (context, tagBox, widget) {
-          return ListView.builder(
+          return ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
               itemCount: tagBox.length,
               itemBuilder: (context, index) =>
-                  _individualTag(tagBox.get(index), index));
+                  _individualTag(tagBox.get(index), index),
+            separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(height: 10.0);
+            },
+          );
         });
   }
 
@@ -69,7 +76,7 @@ class _TagListWidgetState extends State<TagListWidget> {
                       ),
                       child: CircleAvatar(
                         radius: 45.0,
-                        backgroundImage: CachedNetworkImageProvider('https://picsum.photos/250?image=9')
+                        backgroundImage: CachedNetworkImageProvider('https://picsum.photos/250')
                       )
                   ),
                 ),

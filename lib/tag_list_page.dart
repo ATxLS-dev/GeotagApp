@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'tag_list_widget.dart';
+import 'tag_list_body.dart';
 import 'navigation_drawer.dart';
 import 'navigation_button.dart';
 import 'top_bar.dart';
@@ -22,7 +22,7 @@ class TagListPage extends StatelessWidget {
             runSpacing: 10.0,
             children: <Widget>[
               TopBar('My Geotags', true),
-              TagListWidget(),
+              TagListBody(),
             ],
           ),
           NavigationButton(_scaffoldKey)

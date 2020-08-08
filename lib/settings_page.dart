@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geotag/top_bar.dart';
 import 'navigation_drawer.dart';
 import 'navigation_button.dart';
+import 'settings_body.dart';
 
 class SettingsPage extends StatelessWidget {
 
@@ -11,7 +12,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: NavigationDrawer(),
@@ -20,8 +20,8 @@ class SettingsPage extends StatelessWidget {
           Wrap(
             runSpacing: 10.0,
             children: <Widget>[
-              TopBar('Settings', false)
-              //Settings body
+              TopBar('Settings', false),
+              SettingsBody()
             ],
           ),
         NavigationButton(_scaffoldKey)
