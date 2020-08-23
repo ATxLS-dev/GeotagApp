@@ -94,7 +94,6 @@ class _LoginBodyState extends State<LoginBody> {
         key: _formKey,
         child: ListView(shrinkWrap: true,
           children: <Widget>[
-            logo(),
             emailInput(),
             passwordInput(),
             primaryButton(),
@@ -102,19 +101,6 @@ class _LoginBodyState extends State<LoginBody> {
             errorMessage()
           ],
         ),
-      ),
-    );
-  }
-
-  Widget logo() {
-    return Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
-        child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 48.0,
-            child: Image.asset('assets/geotag_icon/1024.png')),
       ),
     );
   }

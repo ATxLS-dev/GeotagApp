@@ -8,19 +8,21 @@ class LoginPage extends StatelessWidget {
 
   static const String routeName = '/login_page';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final int pageIndex = 3;
+
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: NavigationDrawer(),
+      endDrawer: NavigationDrawer(pageIndex),
       body: Stack(
         children: <Widget>[
           Wrap(
             runSpacing: 10.0,
             children: <Widget>[
-              TopBar('My Account', true),
+              TopBar('My Account', false),
               LoginBody()
             ],
           ),

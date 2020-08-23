@@ -11,8 +11,6 @@ class TopBar extends StatelessWidget {
   @required
   final bool hasButton;
 
-  static final _cornerRadius = Radius.circular(30.0);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,11 +28,7 @@ class TopBar extends StatelessWidget {
   Widget sortButton() {
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: defaultNeumorphicStyle(
-          depth: -4.0,
-          color: Colors.transparent,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-              topLeft: _cornerRadius, bottomLeft: _cornerRadius))),
+      style: sunkenNeumorphicStyle(radius: 30.0, fromLeft: false),
       child: Container(
         child: Neumorphic(
           style: defaultNeumorphicStyle(
@@ -56,7 +50,7 @@ class TopBar extends StatelessWidget {
             depth: 2.0,
             color: Colors.transparent,
             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-                topRight: _cornerRadius, bottomRight: _cornerRadius))),
+                topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)))),
         child: Container(
           child: Text(
             titleText,

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'default_neumorphic_style.dart';
 import 'routes.dart';
 
 enum NavRadio { mapPage, listPage, themeChangerPage, accountPage, settingsPage }
 
 class NavigationDrawer extends StatefulWidget {
+  NavigationDrawer(this.pageIndex);
+  final int pageIndex;
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
@@ -13,6 +16,12 @@ class NavigationDrawer extends StatefulWidget {
 class _NavigationDrawerState extends State<NavigationDrawer> {
 
   NavRadio navRadio;
+
+  @override
+  void initState() {
+    super.initState();
+    navRadio = NavRadio.values[widget.pageIndex];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +37,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             elevation: 0.0,
             child: Neumorphic(
               padding: EdgeInsets.fromLTRB(10.0, 10.0, 18.0, 10.0),
-              style: NeumorphicStyle(
-                  depth: -4.0,
-                  intensity: 1,
-                  color: Theme.of(context).backgroundColor,
-                  border: NeumorphicBorder(
-                      color: Color(0xffF8F4EC),
-                      width: 2.8
-                  ),
-                  boxShape: NeumorphicBoxShape.roundRect(
-                      BorderRadius.only(
-                          topLeft: Radius.circular(37.0),
-                          bottomLeft: Radius.circular(37.0)
-                      )
-                  )
-              ),
+              style: sunkenNeumorphicStyle(radius: 37.0, fromLeft: false),
               child: NeumorphicTheme(
-                  theme: NeumorphicThemeData(
-                    baseColor: NeumorphicColors.background,
-                    lightSource: LightSource.topLeft,
-                  ),
+                  theme: defaultNeumorphicThemeData(),
                   child: _navRadioField()
               ),
             ),
@@ -88,7 +80,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       children: <Widget>[
         neumorphicRadio(
             value: NavRadio.mapPage,
-            icon: FeatherIcons.lifeBuoy,),
+            icon: FeatherIcons.lifeBuoy),
         neumorphicRadio(
             value: NavRadio.listPage,
             icon: FeatherIcons.mapPin),
@@ -117,17 +109,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           padding: EdgeInsets.all(14.0),
           child: Icon(icon, color: Colors.white, size: 28.0)
       ),
-      style: NeumorphicRadioStyle(
-          selectedColor: Color(0xff2E2C24),
-          unselectedColor: Color(0xff2E2C24),
-          selectedDepth: -4.0,
-          unselectedDepth: 4.0,
-          intensity: 1.0,
-          boxShape: NeumorphicBoxShape.circle(),
-          border: NeumorphicBorder(
-              color: Color(0xffF8F4EC),
-              width: 2.8)
-      ),
+      style: neumorphicRadioStyle(isCircle: true)
     );
   }
 }

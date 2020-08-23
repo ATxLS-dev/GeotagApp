@@ -9,12 +9,13 @@ class ThemeChangerPage extends StatelessWidget {
 
   static const String routeName = '/theme_changer_page';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final int pageIndex = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: NavigationDrawer(),
+      endDrawer: NavigationDrawer(pageIndex),
       body: Stack(
         children: <Widget>[
           Wrap(

@@ -9,13 +9,14 @@ class TagListPage extends StatelessWidget {
 
   static const String routeName = '/tag_list_page';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final int pageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: NavigationDrawer(),
+      endDrawer: NavigationDrawer(pageIndex),
       body: Stack(
         children: <Widget>[
           Wrap(

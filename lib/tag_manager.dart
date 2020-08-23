@@ -1,20 +1,18 @@
-import 'hive_database.dart';
 import 'package:hive/hive.dart';
 import 'hive_type.dart';
 import 'package:geolocator/geolocator.dart';
 
-class TagDatabase extends HiveDatabase {
+class TagDatabase {
 
-  Box<HiveTagFormat> tagBox;
+  var tagBox = Hive.box('tagBox');
   String currentTagText;
 
-  void saveTag({Position currentPosition}) async {
-    tagBox = await Hive.openBox<HiveTagFormat>('tags');
+  void saveTag({Position currentPosition}) {
     final _tag = HiveTagFormat(
         tagLatitude: currentPosition.latitude,
         tagLongitude: currentPosition.longitude,
         tagText: currentTagText ?? 'empty tag');
-    await tagBox.add(_tag);
+    tagBox.add(_tag);
   }
 
   HiveTagFormat getTag(int keyValue) => tagBox.get(keyValue);

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'config.dart';
+import 'tag_manager.dart';
 
 class WriteTagOverlay extends ModalRoute<void> {
+
   @override
   Duration get transitionDuration => Duration(milliseconds: 500);
   @override
@@ -60,6 +61,7 @@ class _TagForm extends StatefulWidget {
 class _TagFormState extends State<_TagForm> {
   final _controller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final tagDatabase = TagDatabase();
 
   @override
   void initState() {
@@ -111,6 +113,7 @@ class _OverlayButtonState extends State<_OverlayButton> {
 
   bool savingNote = false;
   bool success = false;
+  final tagDatabase = TagDatabase();
 
   @override
   Widget build(BuildContext context) {

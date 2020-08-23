@@ -4,25 +4,25 @@ import 'dart:async';
 class PositionManager {
 
   PositionManager() {
-    _checkGeolocationPermissions();
+    checkGeolocationPermissions();
   }
-  
-  Position currentPosition;
-  static final _geolocator = Geolocator();
+
+  final _geolocator = Geolocator()..forceAndroidLocationManager = true;
   var geolocationStatus = GeolocationStatus.unknown;
 
-  void _checkGeolocationPermissions() async {
+  void checkGeolocationPermissions() async {
     geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
-  }
-
-  Future<Position> syncCurrentPosition() async {
-    currentPosition = await _geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    return currentPosition;
   }
 }
 
 class PositionBloc extends PositionManager {
+
+  Future<Position> getCurrentPosition() async {
+    var currentPosition = await _geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    print(currentPosition);
+    return currentPosition;
+  }
 
   StreamController streamListController = StreamController<Position>.broadcast();
 
@@ -30,6 +30,6 @@ class PositionBloc extends PositionManager {
 
   Stream<Position> get positionStream => streamListController.stream;
 
-  void streamCurrentPosition() async =>
-    positionSink.add(await syncCurrentPosition());
+  void sendCurrentPosition() async =>
+    streamListController.add(await getCurrentPosition());
 }
