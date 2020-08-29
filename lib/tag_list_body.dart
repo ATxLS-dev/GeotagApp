@@ -6,7 +6,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'hive_type.dart';
-import 'default_neumorphic_style.dart';
+import 'neumorphic_styles.dart';
 
 class TagListBody extends StatefulWidget {
   TagListBody({Key key}) : super(key: key);
@@ -17,6 +17,7 @@ class TagListBody extends StatefulWidget {
 class _TagListBodyState extends State<TagListBody> {
 
   final tagDatabase = TagDatabase();
+  final neumorphicStyles = LightNeumorphicStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _TagListBodyState extends State<TagListBody> {
     return Padding(
       padding: EdgeInsets.only(right: 20.0),
       child: Neumorphic(
-        style: sunkenNeumorphicStyle(hasBorder: false, radius: 60.0, fromLeft: true),
+        style: neumorphicStyles.sunkenSemiCircle(hasBorder: false, radius: 60.0, fromLeft: true),
         child: _tagUnderlay(boxItem, index)
       ),
     );
@@ -64,7 +65,7 @@ class _TagListBodyState extends State<TagListBody> {
         SlideAction(
           onTap: () => tagDatabase.deleteTag(index),
           child: Neumorphic(
-            style: raisedNeumorphicStyle(color: Colors.lightBlue),
+            style: neumorphicStyles.raisedCircle(color: Colors.lightBlue),
             padding: EdgeInsets.all(14.0),
             child: Icon(FeatherIcons.edit3, color: Colors.white, size: 28.0),
           ),
@@ -74,7 +75,7 @@ class _TagListBodyState extends State<TagListBody> {
           child: Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: Neumorphic(
-              style: raisedNeumorphicStyle(color: Colors.red),
+              style: neumorphicStyles.raisedCircle(color: Colors.red),
               padding: EdgeInsets.all(14.0),
               child: Icon(FeatherIcons.trash2, color: Colors.white, size: 28.0),
             ),
@@ -87,7 +88,7 @@ class _TagListBodyState extends State<TagListBody> {
   
   Widget tagTopLayer(HiveTagFormat boxItem) {
     return Neumorphic(
-      style: sunkenNeumorphicStyle(radius: 60.0, fromLeft: true),
+      style: neumorphicStyles.sunkenSemiCircle(radius: 60.0, fromLeft: true),
       child: SizedBox(
         height: 120.0,
         child: Padding(
@@ -108,7 +109,7 @@ class _TagListBodyState extends State<TagListBody> {
     return Align(
       alignment: Alignment.centerRight,
       child: Neumorphic(
-          style: raisedNeumorphicStyle(),
+          style: neumorphicStyles.raisedCircle(),
           child: CircleAvatar(
               radius: 45.0,
               backgroundImage: CachedNetworkImageProvider('https://picsum.photos/250/10')

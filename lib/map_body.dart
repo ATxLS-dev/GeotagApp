@@ -3,10 +3,11 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geotag/tag_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'position_manager.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'default_neumorphic_style.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:hive/hive.dart';
+import 'position_manager.dart';
+import 'neumorphic_styles.dart';
 
 enum MapButton { recenter , toggleMarkers , createTag }
 
@@ -22,6 +23,9 @@ class _MapBodyState extends State<MapBody> {
   final mapBloc = PositionBloc();
   final tagDatabase = TagDatabase();
 
+  final neumorphicStyles = LightNeumorphicStyles();
+  bool themeKey;
+
   String _mapStyle;
   BitmapDescriptor pinIcon;
   Set<Marker> markers = {};
@@ -29,16 +33,15 @@ class _MapBodyState extends State<MapBody> {
   @override
   void initState() {
     super.initState();
+    themeKey = Hive.box<bool>('themeBox').get('themeKey');
     rootBundle
-        .loadString('assets/map_theme_burnt.txt')
+        .loadString(themeKey ? 'assets/map_theme_burnt.txt' : 'assets/map_theme_dark_bronze.txt')
         .then((string) => _mapStyle = string);
     mapBloc.sendCurrentPosition();
     BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
             'assets/tag_markers/tag.png')
         .then((value) => pinIcon = value);
   }
-
-  //Map does not rebuild when device location adjusts
 
   @override
   Widget build(BuildContext context) {
@@ -84,36 +87,41 @@ class _MapBodyState extends State<MapBody> {
 
   Widget mapButtons(BuildContext context) {
     final _runSpacing = 14.0;
-    return Container(
-      alignment: Alignment.bottomRight,
-      padding: EdgeInsets.only(top: 64.0),
-      child: Column(
-        children: <Widget>[
-          _neumorphicMapButton(
-              FeatherIcons.crosshair,
-              MapButton.recenter),
-          SizedBox(height: _runSpacing),
-          _neumorphicMapButton(
-              FeatherIcons.anchor,
-              MapButton.toggleMarkers),
-          SizedBox(height: _runSpacing),
-          _neumorphicMapButton(
-              FeatherIcons.plus,
-              MapButton.createTag),
-        ],
-      ),
+    return Column(
+        children: <Widget> [
+          Expanded(child: Container()),
+          Container(
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.only(bottom: 132.0),
+            child: Column(
+              children: <Widget>[
+                _neumorphicMapButton(
+                    FeatherIcons.bookmark,
+                    MapButton.recenter),
+                SizedBox(height: _runSpacing),
+                _neumorphicMapButton(
+                    FeatherIcons.mapPin,
+                    MapButton.toggleMarkers),
+                SizedBox(height: _runSpacing),
+                _neumorphicMapButton(
+                    FeatherIcons.plus,
+                    MapButton.createTag),
+              ],
+            ),
+          ),
+        ]
     );
   }
 
   Widget _neumorphicMapButton(IconData iconData, MapButton mapButton) {
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: sunkenNeumorphicStyle(radius: 30.0, fromLeft: false),
+      style: neumorphicStyles.sunkenSemiCircle(radius: 30.0, fromLeft: false),
       child: NeumorphicTheme(
-        theme: defaultNeumorphicThemeData(),
+        theme: neumorphicStyles.baseTheme(),
         child: NeumorphicButton(
           onPressed: () => _buttonFunction(mapButton),
-          style: raisedNeumorphicStyle(),
+          style: neumorphicStyles.raisedCircle(),
           padding: EdgeInsets.all(8.0),
           child: Icon(iconData, color: Colors.white, size: 24.0),
         ),

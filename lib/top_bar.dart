@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'default_neumorphic_style.dart';
+import 'neumorphic_styles.dart';
 
 class TopBar extends StatelessWidget {
   TopBar(this.titleText, this.hasButton);
@@ -10,6 +10,8 @@ class TopBar extends StatelessWidget {
   final String titleText;
   @required
   final bool hasButton;
+
+  final neumorphicStyles = LightNeumorphicStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,10 @@ class TopBar extends StatelessWidget {
   Widget sortButton() {
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: sunkenNeumorphicStyle(radius: 30.0, fromLeft: false),
+      style: neumorphicStyles.sunkenSemiCircle(radius: 30.0, fromLeft: false),
       child: Container(
         child: Neumorphic(
-          style: defaultNeumorphicStyle(
+          style: neumorphicStyles.defaultStyle(
             depth: 4.0,
             boxShape: NeumorphicBoxShape.circle(),
             color: Color(0xff2E2C24)),
@@ -46,9 +48,8 @@ class TopBar extends StatelessWidget {
   Widget title() {
     return Neumorphic(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-        style: defaultNeumorphicStyle(
+        style: neumorphicStyles.defaultStyle(
             depth: 2.0,
-            color: Colors.transparent,
             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
                 topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)))),
         child: Container(

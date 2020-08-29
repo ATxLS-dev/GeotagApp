@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 class TagDatabase {
 
-  var tagBox = Hive.box('tagBox');
+  var tagBox = Hive.box<HiveTagFormat>('tagBox');
   String currentTagText;
 
   void saveTag({Position currentPosition}) {
