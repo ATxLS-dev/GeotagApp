@@ -23,7 +23,7 @@ class _MapBodyState extends State<MapBody> {
   final mapBloc = PositionBloc();
   final tagDatabase = TagDatabase();
 
-  final neumorphicStyles = LightNeumorphicStyles();
+  final neumorphicStyles = NeumorphicStyles();
   bool themeKey;
 
   String _mapStyle;
@@ -58,20 +58,20 @@ class _MapBodyState extends State<MapBody> {
     ]);
   }
 
-  Widget _mapView(LatLng _latLngSnapshot) {
+  Widget _mapView(LatLng latLngSnapshot) {
     return GoogleMap(
       onMapCreated: (GoogleMapController controller) {
         _controller = controller;
         _controller.setMapStyle(_mapStyle);
         setState(() => markers.add(Marker(
             markerId: MarkerId('<MARKER_ID>'),
-            position: _latLngSnapshot,
+            position: latLngSnapshot,
             icon: pinIcon)));
       },
       markers: markers,
       myLocationButtonEnabled: false,
       initialCameraPosition:
-          CameraPosition(target: _latLngSnapshot, zoom: 11.0)
+          CameraPosition(target: latLngSnapshot, zoom: 11.0)
     );
   }
 
@@ -116,14 +116,14 @@ class _MapBodyState extends State<MapBody> {
   Widget _neumorphicMapButton(IconData iconData, MapButton mapButton) {
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: neumorphicStyles.sunkenSemiCircle(radius: 30.0, fromLeft: false),
+      style: neumorphicStyles.sunkenArch(radius: 30.0, fromLeft: false),
       child: NeumorphicTheme(
         theme: neumorphicStyles.baseTheme(),
         child: NeumorphicButton(
           onPressed: () => _buttonFunction(mapButton),
           style: neumorphicStyles.raisedCircle(),
           padding: EdgeInsets.all(8.0),
-          child: Icon(iconData, color: Colors.white, size: 24.0),
+          child: Icon(iconData, color: neumorphicStyles.invertedColor(), size: 24.0),
         ),
       ),
     );

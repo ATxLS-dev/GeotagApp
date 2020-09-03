@@ -11,7 +11,7 @@ class TopBar extends StatelessWidget {
   @required
   final bool hasButton;
 
-  final neumorphicStyles = LightNeumorphicStyles();
+  final neumorphicStyles = NeumorphicStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,15 @@ class TopBar extends StatelessWidget {
   Widget sortButton() {
     return Neumorphic(
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-      style: neumorphicStyles.sunkenSemiCircle(radius: 30.0, fromLeft: false),
+      style: neumorphicStyles.sunkenArch(radius: 30.0, fromLeft: false),
       child: Container(
         child: Neumorphic(
           style: neumorphicStyles.defaultStyle(
             depth: 4.0,
-            boxShape: NeumorphicBoxShape.circle(),
-            color: Color(0xff2E2C24)),
+            boxShape: NeumorphicBoxShape.circle()),
           padding: EdgeInsets.all(8.0),
           child: Icon(FeatherIcons.moreHorizontal,
-              color: Colors.white, size: 24.0),
+              color: neumorphicStyles.invertedColor(), size: 24.0),
         ),
       ),
     );
@@ -48,14 +47,13 @@ class TopBar extends StatelessWidget {
   Widget title() {
     return Neumorphic(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0),
-        style: neumorphicStyles.defaultStyle(
-            depth: 2.0,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-                topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)))),
+        style: neumorphicStyles.sunkenArch(
+            fromLeft: true,
+            radius: 30.0),
         child: Container(
           child: Text(
             titleText,
-            style: TextStyle(fontSize: 24.0),
+            style: TextStyle(fontSize: 24.0, color: neumorphicStyles.invertedColor()),
           ),
         )
     );

@@ -8,7 +8,7 @@ class NavigationButton extends StatelessWidget {
 
   NavigationButton(this._scaffoldKey);
   final GlobalKey<ScaffoldState> _scaffoldKey;
-  final neumorphicStyles = LightNeumorphicStyles();
+  final neumorphicStyles = NeumorphicStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class NavigationButton extends StatelessWidget {
         theme: neumorphicStyles.baseTheme(),
         child: Neumorphic(
           padding: EdgeInsets.fromLTRB(10.0, 10.0, 18.0, 10.0),
-          style: neumorphicStyles.sunkenSemiCircle(radius: 37.0, fromLeft: false),
+          style: neumorphicStyles.sunkenArch(radius: 37.0, fromLeft: false),
           child: NeumorphicButton(
             onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
             style: neumorphicStyles.raisedCircle(),
@@ -28,7 +28,7 @@ class NavigationButton extends StatelessWidget {
                 alignment: Alignment.center,
                 transform: Matrix4.rotationY(math.pi),
                 child: Icon(FeatherIcons.sidebar,
-                    size: 28.0, color: Colors.white)
+                    size: 28.0, color: neumorphicStyles.invertedColor())
             ),
           ),
         ),

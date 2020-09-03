@@ -15,7 +15,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
 
-  final neumorphicStyles = LightNeumorphicStyles();
+  final neumorphicStyles = NeumorphicStyles();
   NavRadio navRadio;
 
   @override
@@ -38,7 +38,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             elevation: 0.0,
             child: Neumorphic(
               padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
-              style: neumorphicStyles.sunkenSemiCircle(radius: 37.0, fromLeft: false),
+              style: neumorphicStyles.sunkenArch(radius: 37.0, fromLeft: false),
               child: NeumorphicTheme(
                   theme: neumorphicStyles.baseTheme(),
                   child: _navRadioField()
@@ -70,7 +70,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   Widget _navRadioField() {
     return Wrap(
       runSpacing: 10.0,
-      children: <Widget>[
+      children: [
         neumorphicRadio(
             value: NavRadio.mapPage,
             icon: FeatherIcons.map),
@@ -94,7 +94,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       },
       child: Container(
           padding: EdgeInsets.all(14.0),
-          child: Icon(icon, color: Colors.white, size: 28.0)
+          child: Icon(icon, color: neumorphicStyles.invertedColor(), size: 28.0)
       ),
       style: neumorphicStyles.radio(isCircle: true)
     );

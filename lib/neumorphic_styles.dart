@@ -1,35 +1,42 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:hive/hive.dart';
 
-class LightNeumorphicStyles {
+class NeumorphicStyles {
 
-  LightNeumorphicStyles() {
+  NeumorphicStyles() {
     isDark = Hive.box<bool>('themeBox').get('themeKey');
   }
 
   bool isDark = false;
 
-  final lightBase = Color(0xff2E2C24);
-  final lightAccent = Color(0xffF8F4EC);
-  final darkBase = Color(0xff2E2C24);
-  final darkAccent = Color(0xff523C2E);
+  final lightBase = Color(0xffF8F4EC);
+  final lightAccent = Color(0xff2d9f93).withOpacity(0.3);
+  final darkBase = Color(0xff212121);
 
-  final intensity = 0.3;
+  final darkAccentBronze = Color(0xff523C2E).withOpacity(0.4);
+  final black = Colors.black;
 
-  NeumorphicBorder neumorphicBorder() =>
-      NeumorphicBorder(color: getAccent(isDark), width: 2.8);
+  NeumorphicBorder _neumorphicBorder() =>
+      NeumorphicBorder(color: _getAccent(isDark), width: 1.0);
 
-  Color getBase(bool isDark) =>
+  Color _getBase(bool isDark) =>
     isDark ? lightBase : darkBase;
 
+  Color _getAccent(bool isDark) =>
+    isDark ? lightAccent : darkAccentBronze;
 
-  Color getAccent(bool isDark) =>
-    isDark ? lightAccent : darkAccent;
+  double _intensity() => isDark ? 1 : 0.3;
 
+  Color invertedColor() => _getBase(!isDark);
+  Color normalColor() => _getBase(isDark);
+
+  TextStyle bodyTextStyle() {
+    return TextStyle(fontSize: 18.0, color: invertedColor());
+  }
 
   NeumorphicThemeData baseTheme() {
     return NeumorphicThemeData(
-        baseColor: getBase(isDark),
+        baseColor: _getBase(isDark),
         lightSource: LightSource.topLeft
     );
   }
@@ -43,17 +50,17 @@ class LightNeumorphicStyles {
         shape: NeumorphicShape.flat,
         boxShape: boxShape,
         depth: depth ?? -4.0,
-        intensity: intensity,
+        intensity: _intensity(),
         border: hasBorder ?
-          neumorphicBorder() : NeumorphicBorder.none(),
-        color: color ?? Colors.transparent);
+          _neumorphicBorder() : NeumorphicBorder.none(),
+        color: color ?? _getBase(isDark));
   }
 
-  NeumorphicStyle sunkenSemiCircle({
+  NeumorphicStyle sunkenArch({
     double radius,
     bool fromLeft,
     double depth,
-    bool hasBorder = true}) {
+    bool hasBorder = false}) {
     return NeumorphicStyle(
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.roundRect(
@@ -65,11 +72,11 @@ class LightNeumorphicStyles {
                 topLeft: Radius.circular(radius),
                 bottomLeft: Radius.circular(radius))
         ),
-        depth: depth ?? -4.0,
-        intensity: intensity,
-        border: hasBorder ?
-          neumorphicBorder() : NeumorphicBorder.none(),
-        color: getAccent(isDark));
+        depth: depth ?? -2.0,
+        intensity: _intensity(),
+        border: !isDark ?
+          _neumorphicBorder() : NeumorphicBorder.none(),
+        color: _getBase(isDark));
   }
 
   NeumorphicStyle raisedCircle({Color color}) {
@@ -77,21 +84,21 @@ class LightNeumorphicStyles {
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.circle(),
         depth: 4.0,
-        intensity: intensity,
-        border: neumorphicBorder(),
-        color: color ?? getBase(isDark));
+        intensity: _intensity(),
+        border: _neumorphicBorder(),
+        color: color ?? _getBase(isDark));
   }
 
-  NeumorphicRadioStyle radio({bool isCircle}) {
+  NeumorphicRadioStyle radio({bool isCircle = true}) {
     return NeumorphicRadioStyle(
-        selectedColor: getBase(isDark),
-        unselectedColor: getBase(isDark),
-        selectedDepth: 0,
+        selectedColor: _getBase(isDark),
+        unselectedColor: _getBase(isDark),
+        selectedDepth: -4.0,
         unselectedDepth: 4.0,
-        intensity: intensity,
+        intensity: _intensity(),
         boxShape: isCircle ? NeumorphicBoxShape.circle()
             : NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(27.0))),
-        border: neumorphicBorder()
+        border: _neumorphicBorder()
     );
   }
 }

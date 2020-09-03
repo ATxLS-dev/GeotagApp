@@ -17,7 +17,7 @@ class TagListBody extends StatefulWidget {
 class _TagListBodyState extends State<TagListBody> {
 
   final tagDatabase = TagDatabase();
-  final neumorphicStyles = LightNeumorphicStyles();
+  final neumorphicStyles = NeumorphicStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _TagListBodyState extends State<TagListBody> {
     return Padding(
       padding: EdgeInsets.only(right: 20.0),
       child: Neumorphic(
-        style: neumorphicStyles.sunkenSemiCircle(hasBorder: false, radius: 60.0, fromLeft: true),
+        style: neumorphicStyles.sunkenArch(hasBorder: false, radius: 60.0, fromLeft: true, depth: 0.0),
         child: _tagUnderlay(boxItem, index)
       ),
     );
@@ -65,9 +65,9 @@ class _TagListBodyState extends State<TagListBody> {
         SlideAction(
           onTap: () => tagDatabase.deleteTag(index),
           child: Neumorphic(
-            style: neumorphicStyles.raisedCircle(color: Colors.lightBlue),
+            style: neumorphicStyles.raisedCircle(),
             padding: EdgeInsets.all(14.0),
-            child: Icon(FeatherIcons.edit3, color: Colors.white, size: 28.0),
+            child: Icon(FeatherIcons.edit3, color: Colors.lightBlue, size: 28.0),
           ),
         ),
         SlideAction(
@@ -75,9 +75,9 @@ class _TagListBodyState extends State<TagListBody> {
           child: Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: Neumorphic(
-              style: neumorphicStyles.raisedCircle(color: Colors.red),
+              style: neumorphicStyles.raisedCircle(),
               padding: EdgeInsets.all(14.0),
-              child: Icon(FeatherIcons.trash2, color: Colors.white, size: 28.0),
+              child: Icon(FeatherIcons.trash2, color: Colors.red, size: 28.0),
             ),
           ),
         ),
@@ -88,7 +88,7 @@ class _TagListBodyState extends State<TagListBody> {
   
   Widget tagTopLayer(HiveTagFormat boxItem) {
     return Neumorphic(
-      style: neumorphicStyles.sunkenSemiCircle(radius: 60.0, fromLeft: true),
+      style: neumorphicStyles.sunkenArch(radius: 60.0, fromLeft: true),
       child: SizedBox(
         height: 120.0,
         child: Padding(
@@ -135,11 +135,11 @@ class _TagListBodyState extends State<TagListBody> {
           children: <Widget>[
             Text(
               '${boxItem.tagLatitude}',
-              style: TextStyle(color: Colors.black.withOpacity(0.5)),
+              style: TextStyle(color: neumorphicStyles.invertedColor()),
             ),
             Text(
               '${boxItem.tagLongitude}',
-              style: TextStyle(color: Colors.black.withOpacity(0.5)),
+              style: TextStyle(color: neumorphicStyles.invertedColor()),
             ),
           ]
       ),

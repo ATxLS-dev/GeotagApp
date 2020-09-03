@@ -16,6 +16,7 @@ void main() async {
   Hive.registerAdapter(HiveTagFormatAdapter());
   await Hive.openBox<bool>('themeBox');
   await Hive.openBox<HiveTagFormat>('tagBox');
+  await Hive.box<bool>('themeBox').put('themeKey', true);
   runApp(GeotagApp());
 }
 
