@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:geotag/tag_manager.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'hive_type.dart';
+import 'tag_manager.dart';
 import 'neumorphic_styles.dart';
 
 class TagListBody extends StatefulWidget {
@@ -16,30 +17,21 @@ class TagListBody extends StatefulWidget {
 
 class _TagListBodyState extends State<TagListBody> {
 
-  final tagDatabase = TagDatabase();
+  final tagManager = TagManager();
   final neumorphicStyles = NeumorphicStyles();
+  final tagBox = Hive.box<HiveTagFormat>('tagBox');
 
   @override
   Widget build(BuildContext context) {
-    return tagDatabase.tagBox != null ? _boxBuilder()
-        : _individualTag(
-        HiveTagFormat(
-            tagLatitude: 37.4219999,
-            tagLongitude: -122.0862462,
-            tagText: 'Yosemite Valley'),
-        0);
-  }
-
-  Widget _boxBuilder() {
     return ValueListenableBuilder(
-        valueListenable: tagDatabase.tagBox.listenable(),
-        builder: (context, tagBox, widget) {
+        valueListenable: tagBox.listenable(),
+        builder: (context, box, widget) {
           return ListView.separated(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: tagBox.length,
+            itemCount: box.length,
             itemBuilder: (context, index) =>
-                _individualTag(tagBox.get(index), index),
+              _individualTag(box.getAt(index), index),
             separatorBuilder: (context, index) =>
                 SizedBox(height: 10.0),
           );
@@ -50,43 +42,52 @@ class _TagListBodyState extends State<TagListBody> {
     return Padding(
       padding: EdgeInsets.only(right: 20.0),
       child: Neumorphic(
-        style: neumorphicStyles.sunkenArch(hasBorder: false, radius: 60.0, fromLeft: true, depth: 0.0),
-        child: _tagUnderlay(boxItem, index)
+          style: neumorphicStyles.sunkenArch(hasBorder: false, radius: 60.0, fromLeft: true, depth: 0.0),
+          child: _tagUnderlay(boxItem, index)
       ),
     );
   }
 
   Widget _tagUnderlay(HiveTagFormat boxItem, int index) {
     return Slidable(
-      key: ValueKey(index),
-      actionPane: SlidableBehindActionPane(),
-      actionExtentRatio: 0.25,
-      secondaryActions: <Widget> [
-        SlideAction(
-          onTap: () => tagDatabase.deleteTag(index),
-          child: Neumorphic(
-            style: neumorphicStyles.raisedCircle(),
-            padding: EdgeInsets.all(14.0),
-            child: Icon(FeatherIcons.edit3, color: Colors.lightBlue, size: 28.0),
-          ),
-        ),
-        SlideAction(
-          onTap: () => tagDatabase.deleteTag(index),
-          child: Padding(
-            padding: EdgeInsets.only(right: 20.0),
+        key: ValueKey(index),
+        actionPane: SlidableBehindActionPane(),
+        actionExtentRatio: 0.25,
+        secondaryActions: <Widget> [
+          SlideAction(
+            onTap: () => tagBox.deleteAt(index),
             child: Neumorphic(
               style: neumorphicStyles.raisedCircle(),
               padding: EdgeInsets.all(14.0),
-              child: Icon(FeatherIcons.trash2, color: Colors.red, size: 28.0),
+              child: Icon(FeatherIcons.edit3, color: Colors.lightBlue, size: 28.0),
             ),
           ),
-        ),
-      ],
-      child: tagTopLayer(boxItem)
+          SlideAction(
+            onTap: () => tagBox.deleteAt(index),
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: Neumorphic(
+                style: neumorphicStyles.raisedCircle(),
+                padding: EdgeInsets.all(14.0),
+                child: Icon(FeatherIcons.trash2, color: Colors.red, size: 28.0),
+              ),
+            ),
+          ),
+        ],
+        child: IndividualTag(boxItem)
     );
   }
-  
-  Widget tagTopLayer(HiveTagFormat boxItem) {
+}
+
+class IndividualTag extends StatelessWidget {
+
+  IndividualTag(this.boxItem);
+
+  final HiveTagFormat boxItem;
+  final neumorphicStyles = NeumorphicStyles();
+
+  @override
+  Widget build(BuildContext context) {
     return Neumorphic(
       style: neumorphicStyles.sunkenArch(radius: 60.0, fromLeft: true),
       child: SizedBox(
@@ -121,7 +122,7 @@ class _TagListBodyState extends State<TagListBody> {
   Widget _tagText(HiveTagFormat boxItem) {
     return Align(
       alignment: Alignment.topLeft,
-      child: Text(boxItem.tagText ?? 'tag not written',
+      child: Text(boxItem.tagText,
         style: TextStyle(fontSize: 18.0),
       ),
     );

@@ -34,6 +34,10 @@ class NeumorphicStyles {
     return TextStyle(fontSize: 18.0, color: invertedColor());
   }
 
+  Icon iconStyle(IconData iconData) {
+    return Icon(iconData, size: 24.0, color: invertedColor());
+  }
+
   NeumorphicThemeData baseTheme() {
     return NeumorphicThemeData(
         baseColor: _getBase(isDark),

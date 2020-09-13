@@ -2,9 +2,9 @@ import 'package:hive/hive.dart';
 import 'hive_type.dart';
 import 'package:geolocator/geolocator.dart';
 
-class TagDatabase {
+class TagManager {
 
-  var tagBox = Hive.box<HiveTagFormat>('tagBox');
+  final tagBox = Hive.box<HiveTagFormat>('tagBox');
   String currentTagText;
 
   void saveTag({Position currentPosition}) {
@@ -14,8 +14,6 @@ class TagDatabase {
         tagText: currentTagText ?? 'empty tag');
     tagBox.add(_tag);
   }
-
-  HiveTagFormat getTag(int keyValue) => tagBox.get(keyValue);
 
   void deleteTag(int index) => tagBox.deleteAt(index);
 

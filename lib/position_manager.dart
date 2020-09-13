@@ -1,35 +1,38 @@
 import 'package:geolocator/geolocator.dart';
-import 'dart:async';
+import 'package:hive/hive.dart';
 
 class PositionManager {
 
   PositionManager() {
-    checkGeolocationPermissions();
+    _checkGeolocationPermissions();
   }
 
-  final _geolocator = Geolocator()..forceAndroidLocationManager = true;
-  var geolocationStatus = GeolocationStatus.unknown;
+  final coordinateBox = Hive.box<double>('coordinateBox');
+  LocationPermission locationPermission;
 
-  void checkGeolocationPermissions() async {
-    geolocationStatus = await _geolocator.checkGeolocationPermissionStatus();
+  void _checkGeolocationPermissions() async {
+    locationPermission = await checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await requestPermission();
+    }
   }
-}
 
-class PositionBloc extends PositionManager {
-
-  Future<Position> getCurrentPosition() async {
-    var currentPosition = await _geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+  void syncPosition() async {
+    var currentPosition = await getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     print(currentPosition);
-    return currentPosition;
+    await coordinateBox.put('latitude', currentPosition.latitude);
+    await coordinateBox.put('longitude', currentPosition.longitude);
   }
-
-  StreamController streamListController = StreamController<Position>.broadcast();
-
-  Sink get positionSink => streamListController.sink;
-
-  Stream<Position> get positionStream => streamListController.stream;
-
-  void sendCurrentPosition() async =>
-    streamListController.add(await getCurrentPosition());
 }
+
+// class PositionBloc extends PositionManager {
+//
+//   StreamController streamListController = StreamController<Position>.broadcast();
+//
+//   Sink get positionSink => streamListController.sink;
+//
+//   Stream<Position> get positionStream => streamListController.stream;
+//
+//   void sendCurrentPosition() async =>
+//     streamListController.add(await getCurrentPosition(desiredAccuracy: LocationAccuracy.best));
+// }

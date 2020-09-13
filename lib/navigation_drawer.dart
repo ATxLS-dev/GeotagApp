@@ -73,18 +73,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       children: [
         neumorphicRadio(
             value: NavRadio.mapPage,
-            icon: FeatherIcons.map),
+            iconData: FeatherIcons.map),
         neumorphicRadio(
             value: NavRadio.listPage,
-            icon: FeatherIcons.list),
+            iconData: FeatherIcons.list),
         neumorphicRadio(
             value: NavRadio.themeChangerPage,
-            icon: FeatherIcons.settings)
+            iconData: FeatherIcons.settings)
       ],
     );
   }
 
-  Widget neumorphicRadio({NavRadio value, IconData icon}) {
+  Widget neumorphicRadio({NavRadio value, IconData iconData}) {
     return NeumorphicRadio(
       value: value,
       groupValue: navRadio,
@@ -94,7 +94,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       },
       child: Container(
           padding: EdgeInsets.all(14.0),
-          child: Icon(icon, color: neumorphicStyles.invertedColor(), size: 28.0)
+          child: neumorphicStyles.iconStyle(iconData)
       ),
       style: neumorphicStyles.radio(isCircle: true)
     );

@@ -27,8 +27,7 @@ class NavigationButton extends StatelessWidget {
             child: Transform(
                 alignment: Alignment.center,
                 transform: Matrix4.rotationY(math.pi),
-                child: Icon(FeatherIcons.sidebar,
-                    size: 28.0, color: neumorphicStyles.invertedColor())
+                child: neumorphicStyles.iconStyle(FeatherIcons.sidebar)
             ),
           ),
         ),
